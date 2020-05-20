@@ -1,12 +1,9 @@
 namespace Northwind.Application.Customers.Commands
 {
-  using System;
   using System.Threading;
   using System.Threading.Tasks;
   using AutoMapper;
-  using Common.Exceptions;
   using Common.Interfaces;
-  using Domain.Entities;
   using FluentValidation;
   using FluentValidation.Validators;
   using MediatR;
@@ -57,11 +54,8 @@ namespace Northwind.Application.Customers.Commands
           .WithMessage("Customers in QLD require at least one QLD landline.");
       }
 
-      private static bool HaveQueenslandLandLine(Command model, string phoneValue,
-        PropertyValidatorContext ctx)
-      {
-        return model.Phone.StartsWith("07") || model.Fax.StartsWith("07");
-      }
+      private static bool HaveQueenslandLandLine(Command model, string phoneValue, PropertyValidatorContext ctx) 
+        => model.Phone.StartsWith("07") || model.Fax.StartsWith("07");
     }
     
     // Handler
@@ -78,11 +72,6 @@ namespace Northwind.Application.Customers.Commands
       {
         var entity = await _context.Customers
           .SingleOrDefaultAsync(c => c.CustomerId == command.Id.ToUpper(), token);
-
-        if (entity == null)
-        {
-          throw new NotFoundException(nameof(Customer), command.Id);
-        }
 
         entity.Address = command.Address;
         entity.City = command.City;

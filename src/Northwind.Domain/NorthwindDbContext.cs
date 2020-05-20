@@ -1,15 +1,19 @@
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Northwind.Application.Common.Interfaces;
-using Northwind.Common;
-using Northwind.Domain.Common;
-using Northwind.Domain.Entities;
-
 namespace Northwind.Domain
 {
+  using System;
   using System.Data;
+  using System.Linq;
+  using System.Reflection;
+  using System.Threading;
+  using System.Threading.Tasks;
+  using Microsoft.EntityFrameworkCore;
   using Microsoft.EntityFrameworkCore.Storage;
+  using Northwind.Application.Common.Interfaces;
+  using Northwind.Common;
+  using Common;
+  using Entities;
+  using FluentValidation;
+  using FluentValidation.Results;
 
   public class NorthwindDbContext : DbContext, INorthwindDbContext
   {
@@ -55,6 +59,58 @@ namespace Northwind.Domain
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
     {
+      // Validation
+      foreach (var entry in ChangeTracker.Entries())
+      {
+        var vt = typeof (AbstractValidator<>);
+        var evt = vt.MakeGenericType(entry.Entity.GetType());  // entry.Metadata.Name
+        var validatorTypes =
+          Assembly.GetExecutingAssembly().GetTypes().Where(t => t.IsSubclassOf(evt)).ToList();
+
+        var failures = validatorTypes
+          .Select(vt0 => ((IValidator) 
+            Activator.CreateInstance(vt0))?.Validate(entry.Entity) ?? new ValidationResult())
+          .SelectMany(result => result.Errors)
+          .Where(f => f != null)
+          .ToList();
+
+        if (failures.Count != 0)
+        {
+          throw new ValidationException(failures);
+        }
+        
+        // foreach (var validatorType in validatorTypes)
+        // {
+        //   var validatorInstance = (IValidator)Activator.CreateInstance(validatorType);
+        //
+        //   if (validatorInstance == null)
+        //   {
+        //     continue;
+        //   }
+        //   
+        //   var validationResult = validatorInstance.Validate(entry.Entity);
+        //
+        //   if (!validationResult.IsValid)
+        //   {
+        //     throw new ValidationException("Invalid");
+        //   }
+        //   
+        // }
+        
+        switch (entry.State)
+        {
+          case EntityState.Added:
+            // entry.Entity.CreatedBy = _currentUserService.UserId;
+            // entry.Entity.Created = _dateTime.Now;
+            break;
+          case EntityState.Modified:
+            // entry.Entity.LastModifiedBy = _currentUserService.UserId;
+            // entry.Entity.LastModified = _dateTime.Now;
+          case EntityState.Deleted:
+            break;
+        }
+      }
+      
       foreach (var entry in ChangeTracker.Entries<AuditableEntity>())
       {
         switch (entry.State)

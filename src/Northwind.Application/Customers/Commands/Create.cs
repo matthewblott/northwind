@@ -1,6 +1,5 @@
 namespace Northwind.Application.Customers.Commands
 {
-  using System;
   using System.Threading;
   using System.Threading.Tasks;
   using AutoMapper;
@@ -8,7 +7,6 @@ namespace Northwind.Application.Customers.Commands
   using Domain.Entities;
   using FluentValidation;
   using MediatR;
-  using Notifications.Models;
 
   public class Create
   {

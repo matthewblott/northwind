@@ -2,7 +2,6 @@ namespace Northwind.Application.Customers.Queries
 {
   using System.ComponentModel.DataAnnotations;
   using AutoMapper;
-  using Common.Exceptions;
   using Common.Interfaces;
   using Domain.Entities;
   using System.Threading;
@@ -67,11 +66,6 @@ namespace Northwind.Application.Customers.Queries
       {
         var id = query.Id.ToUpper();
         var entity = await _db.Customers.FindAsync(id);
-
-        if (entity == null)
-        {
-          throw new NotFoundException(nameof(Customer), id);
-        }
 
         return _mapper.Map<Model>(entity);
       }

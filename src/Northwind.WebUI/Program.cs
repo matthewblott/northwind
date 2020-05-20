@@ -2,7 +2,6 @@ namespace Northwind.WebUI
 {
   using Microsoft.AspNetCore;
   using Microsoft.AspNetCore.Hosting;
-  using Setup;
 
   public class Program
   {

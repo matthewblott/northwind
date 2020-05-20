@@ -1,7 +1,6 @@
 namespace Northwind.Application.Products.Queries
 {
   using AutoMapper;
-  using Common.Exceptions;
   using Common.Interfaces;
   using Domain.Entities;
   using System.Threading;
@@ -56,7 +55,7 @@ namespace Northwind.Application.Products.Queries
 
         if (entity == null)
         {
-          throw new NotFoundException(nameof(Product), query.Id);
+          // throw new NotFoundException(nameof(Product), query.Id);
         }
 
         return _mapper.Map<Model>(entity);

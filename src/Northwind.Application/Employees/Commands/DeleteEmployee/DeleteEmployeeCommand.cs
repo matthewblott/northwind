@@ -1,12 +1,10 @@
-﻿using MediatR;
-using Northwind.Application.Common.Exceptions;
-using Northwind.Application.Common.Interfaces;
-using Northwind.Domain.Entities;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Northwind.Application.Employees.Commands.DeleteEmployee
+﻿namespace Northwind.Application.Employees.Commands.DeleteEmployee
 {
+  using MediatR;
+  using Common.Interfaces;
+  using System.Threading;
+  using System.Threading.Tasks;
+
   public class DeleteEmployeeCommand : IRequest
   {
     public int Id { get; set; }
@@ -28,15 +26,15 @@ namespace Northwind.Application.Employees.Commands.DeleteEmployee
         var entity = await _context.Employees
           .FindAsync(request.Id);
 
-        if (entity == null)
-        {
-          throw new NotFoundException(nameof(Employee), request.Id);
-        }
-
-        if (entity.UserId == _currentUser.UserId)
-        {
-          throw new BadRequestException("Employees cannot delete their own account.");
-        }
+        // if (entity == null)
+        // {
+        //   throw new NotFoundException(nameof(Employee), request.Id);
+        // }
+        //
+        // if (entity.UserId == _currentUser.UserId)
+        // {
+        //   throw new BadRequestException("Employees cannot delete their own account.");
+        // }
 
         if (entity.UserId != null)
         {
