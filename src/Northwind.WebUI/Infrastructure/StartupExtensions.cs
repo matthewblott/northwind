@@ -14,6 +14,9 @@ namespace Northwind.WebUI.Infrastructure
   using Domain;
   using Filters;
   using FluentValidation.AspNetCore;
+  using Microsoft.AspNetCore.Authentication.Cookies;
+  using Microsoft.AspNetCore.Authorization;
+  using Microsoft.AspNetCore.Mvc.Authorization;
 
   public static class StartupExtensions
   {
@@ -39,7 +42,12 @@ namespace Northwind.WebUI.Infrastructure
       services.AddScoped<IDateTime, MachineDateTime>();
       services.AddScoped<ICurrentUserService, CurrentUserService>();
     }
-
+    public static void AddMyAuthentication(this IServiceCollection services)
+    {
+      services.AddAuthorization();
+      services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+    }
+    
     public static void AddDbContext(this IServiceCollection services, IConfiguration configuration)
     {
       services.AddDbContext<NorthwindDbContext>(options =>
@@ -56,7 +64,7 @@ namespace Northwind.WebUI.Infrastructure
       services.AddScoped<INorthwindDbContext>(provider => provider.GetService<NorthwindDbContext>());
     }
 
-    public static void AddProjectControllers(this IServiceCollection services)
+    public static void AddMyControllers(this IServiceCollection services)
     {
       services.AddControllersWithViews(options => { options.Filters.Add(typeof(DbContextTransactionFilter)); })
         .AddNewtonsoftJson()
@@ -64,12 +72,18 @@ namespace Northwind.WebUI.Infrastructure
         .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Caller>());
     }
 
-    public static void AddRoutingOptions(this IServiceCollection services)
+    public static void AddMyRouting(this IServiceCollection services)
       => services.AddRouting(option => option.LowercaseUrls = true);
 
-    public static void AddMvcServices(this IServiceCollection services, RazorSettings settings)
+    public static void AddMyMvc(this IServiceCollection services, RazorSettings settings)
     {
-      var builder = services.AddMvc();
+      var builder = services.AddMvc(o =>
+      {
+        var policy = new AuthorizationPolicyBuilder()
+          .RequireAuthenticatedUser()
+          .Build();
+        o.Filters.Add(new AuthorizeFilter(policy));
+      });
 
       var isAllowed = (settings ?? new RazorSettings()).AllowRuntimeCompilation;
 
@@ -77,8 +91,9 @@ namespace Northwind.WebUI.Infrastructure
       {
         builder.AddRazorRuntimeCompilation();
       }
+      
     }
-
+    
     public static RazorSettings GetRazorSettings(this IConfiguration configuration)
       => configuration.GetSection(nameof(RazorSettings)).Get<RazorSettings>();
 

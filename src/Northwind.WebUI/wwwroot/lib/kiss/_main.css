@@ -1,0 +1,7 @@
+@import '_variables.css';
+
+x-main {
+  flex-grow: 1;
+  flex-direction: column;
+  padding-left: var(--padding-md);
+}

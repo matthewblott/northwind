@@ -1,0 +1,15 @@
+:root {
+  --color-font: #2c3539;
+  --color-background: #ffffff;
+  --color-border: #b6b6b4;  
+  --font-family: "Helvetica Neue", sans-serif; /* Arial, Verdana, Tahoma, sans-serif */
+  --font-size: 1.2rem;
+  --border-radius: 0;
+
+  --padding-none: 0;
+  --padding-xm: 1px;
+  --padding-sm: 2px;
+  --padding-md: 4px;
+  --padding-lg: 8px;
+  --padding-xl: 16px;
+}

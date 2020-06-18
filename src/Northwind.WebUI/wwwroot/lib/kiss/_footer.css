@@ -1,0 +1,13 @@
+@import '_variables.css';
+
+x-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  border-top: solid var(--color-border) 1px;
+}
+
+x-footer x-nav-section {
+  display: flex;
+  flex-direction: column;
+}

@@ -20,10 +20,12 @@ namespace Northwind.Domain.Configurations
       builder.Property(e => e.Address).HasMaxLength(60);
 
       builder.Property(e => e.City).HasMaxLength(15);
-
+      
+      const int companyNameLength = 9;
+      
       builder.Property(e => e.CompanyName)
         .IsRequired()
-        .HasMaxLength(40);
+        .HasMaxLength(companyNameLength);
 
       builder.Property(e => e.ContactName).HasMaxLength(30);
 

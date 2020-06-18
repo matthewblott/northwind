@@ -1,0 +1,21 @@
+@model LoginViewModel
+
+<div class="container">
+  <form method="post" asp-action="Login">
+
+    <p class="grouped">
+      <label asp-for="Username"></label>
+      <input asp-for="Username">
+    </p>
+
+    <p class="grouped">
+      <label asp-for="Password"></label>
+      <input asp-for="Password">
+    </p>
+
+    <p class="grouped">
+      <button class="button primary">Login</button>
+    </p>
+
+  </form>
+</div>

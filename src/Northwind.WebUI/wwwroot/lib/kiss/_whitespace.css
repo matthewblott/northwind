@@ -1,0 +1,15 @@
+@import '_variables.css';
+
+x-whitespace[orientation="vertical"] {
+  width: 5px;
+  height: 100%;
+}
+
+x-whitespace[orientation="horizontal"] {
+  height: 5px;
+  width: 100%;
+}
+
+/* x-whitespace[block] {
+  display: block;
+} */

@@ -1,5 +1,8 @@
 namespace Northwind.WebUI.Features.Categories
 {
+  using System.ComponentModel.DataAnnotations;
+  using System.Globalization;
+  using System.IO;
   using Microsoft.AspNetCore.Authorization;
   using Microsoft.AspNetCore.Http;
   using Microsoft.AspNetCore.Mvc;
@@ -7,24 +10,20 @@ namespace Northwind.WebUI.Features.Categories
   using Application.Categories.Commands.UpsertCategory;
   using Application.Categories.Queries.GetCategoriesList;
   using System.Threading.Tasks;
+  using CsvHelper;
   using MediatR;
-  
-  [Authorize]
+  using Microsoft.AspNetCore.Hosting;
+
   public class CategoriesController : Controller
   {
     private readonly IMediator _mediator;
 
-    public CategoriesController(IMediator mediator)
-    {
-      _mediator = mediator;
-    }
+    public CategoriesController(IMediator mediator) => _mediator = mediator;
 
     [HttpGet]
     [AllowAnonymous]
-    public async Task<ActionResult<CategoriesListVm>> GetAll()
-    {
-      return Ok(await _mediator.Send(new GetCategoriesListQuery()));
-    }
+    public async Task<ActionResult<CategoriesListVm>> GetAll() 
+      => Ok(await _mediator.Send(new GetCategoriesListQuery()));
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -45,5 +44,31 @@ namespace Northwind.WebUI.Features.Categories
 
       return NoContent();
     }
+
+    public IActionResult Index() => View();
+
+    [HttpPost]
+    public async Task<IActionResult> Import([FromServices] IWebHostEnvironment env, IFormFile file)
+    {
+      var path = Path.Combine(env.ContentRootPath, "Files", file.FileName);
+
+      using (var reader = new StreamReader("path\\to\\file.csv"))
+      using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+      {    
+        csv.Configuration.PrepareHeaderForMatch = (header, index) => header.ToLower();
+        
+        // var records = csv.GetRecords<Foo>();
+      }
+      
+      // Path.GetRandomFileName());
+      
+      await using (var stream = System.IO.File.Create(path))
+        await file.CopyToAsync(stream);
+
+      return RedirectToAction(nameof(Index));
+      
+    }
+    
   }
+  
 }

@@ -1,0 +1,12 @@
+@import '_variables.css';
+
+input {
+  border: solid var(--color-border) 1px;
+  color: var(--color-font);
+  font-size: inherit;
+  border-radius: var(--border-radius);
+}
+
+input::placeholder {
+  color: var(--color-border);
+}

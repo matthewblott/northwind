@@ -1,0 +1,29 @@
+@import '_variables.css';
+
+x-field input {
+  display: flex;
+  flex-direction: row;
+}
+
+x-field select {
+  display: flex;
+  flex-direction: row;
+}
+
+/* Desktop */
+@media screen and (min-width: 768px) {
+  x-field {
+    display: flex;
+    flex-direction: row;
+    padding: var(--padding-sm);
+  }
+
+  x-field label {
+    width: 25%;
+  }
+  
+  x-field button {
+    margin-left: 25%;
+  }
+  
+}

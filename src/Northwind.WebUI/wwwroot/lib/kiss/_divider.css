@@ -1,0 +1,22 @@
+@import '_variables.css';
+
+x-divider {
+  width: 2px;
+  height: 75%;
+  margin-top: auto;
+  margin-bottom: auto;
+  background-color: var(--color-border);
+  margin-right: var(--padding-lg);
+}
+
+x-divider[desktop] {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+
+  x-divider[desktop] {
+    display: block;
+  }
+  
+}

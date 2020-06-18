@@ -1,0 +1,32 @@
+@import '_variables.css';
+
+x-hamburger-menu {
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px;
+  padding-top: 0;
+  width: 30px;
+  cursor: pointer;
+}
+
+x-hamburger {
+  height: 4px;
+  width: 100%;
+  background-color: var(--color-font);
+  margin-top: 3px;
+  display: flex;
+  flex-direction: row;
+}
+
+x-hamburger-menu:hover x-hamburger {
+  background-color: var(--color-border);
+}
+
+/* Desktop */
+@media screen and (min-width: 768px) {
+  x-hamburger-menu {
+    display: none;
+  }
+}

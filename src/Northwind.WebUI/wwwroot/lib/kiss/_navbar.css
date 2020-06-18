@@ -1,0 +1,50 @@
+@import '_variables.css';
+
+x-nav {
+  display: flex;
+  flex-direction: column;
+}
+
+x-nav-section {
+  display: flex;
+  flex-direction: column;
+}
+
+x-nav input[type="checkbox"] {
+  display: none;
+}
+
+x-nav-section[expand] {
+  display: flex;
+  flex-grow: 1;
+}
+
+input[type="checkbox"]:checked ~ x-nav-section:first-of-type {
+  display: flex;
+  flex-direction: column;
+}
+
+input[type="checkbox"]:checked ~ x-nav-section {
+  display: none;
+}
+
+/* Desktop */
+@media screen and (min-width: 768px) {
+
+  x-nav {
+    display: flex;
+    flex-direction: row;
+  }
+
+  x-nav-section {
+    display: flex;
+    flex-direction: row;
+  }
+
+  x-nav-item {
+    display: flex;
+    flex-direction: row;
+    padding-right: var(--padding-lg);
+  }
+
+}

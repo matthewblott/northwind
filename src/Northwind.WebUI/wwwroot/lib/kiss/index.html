@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="description" content="Write a description for your site here.">
+  <link rel="stylesheet" href="/css/main.css">
+  <title>Test Page</title>
+</head>
+
+<body>
+  <x-header>
+    <x-nav>
+      <input type="checkbox" id="x">
+      <x-nav-section>
+        <x-nav-item>
+          <a href="#">Brand</a>
+        </x-nav-item>
+      </x-nav-section>
+      <x-nav-section expand>
+        <x-nav-item>
+          <a href="#">About</a>
+        </x-nav-item>
+        <x-divider desktop></x-divider>
+        <x-nav-item>
+          <a href="#">Services</a>
+        </x-nav-item>
+        <x-divider desktop></x-divider>
+        <x-nav-item>
+          <a href="#">Contact</a>
+        </x-nav-item>
+      </x-nav-section>
+      <x-nav-section>
+        <x-nav-item>
+          <form>
+            <input name="search" placeholder="Enter your search">
+            <button>Search</button>
+          </form>
+        </x-nav-item>
+        <x-nav-item>Message</x-nav-item>
+      </x-nav-section>
+      <label for="x">
+        <x-hamburger-menu>
+          <x-hamburger></x-hamburger>
+          <x-hamburger></x-hamburger>
+          <x-hamburger></x-hamburger>
+        </x-hamburger-menu>
+      </label>
+    </x-nav>
+  </x-header>
+  <x-main>
+    <h1>Test Page</h1>
+    <p>
+      Some blurb about the site here
+    </p>
+    <x-whitespace block orientation="horizontal"></x-whitespace>
+    <fieldset>
+      <form>
+        <x-field>
+          <label for="FirstName">First Name</label>
+          <input name="FirstName" placeholder="First Name" id="FirstName">
+        </x-field>
+        <x-field>
+          <label>Last Name</label><input name="LastName" placeholder="Last Name">
+        </x-field>
+        <x-field>
+          <label>Email</label>
+          <input name="Email" placeholder="Email">
+        </x-field>
+        <x-field>
+          <label>Role</label>
+          <x-block>
+            <x-border>
+              <select name="Role">
+                <option disabled selected>-- Select --</option>
+                <option value="1">User</option>
+                <option value="2">Super User</option>
+                <option value="3">Administrator</option>
+              </select>
+            </x-border>
+          </x-block>
+        </x-field>
+        <x-whitespace block orientation="horizontal"></x-whitespace>
+        <x-field>
+          <label>Confrm</label>
+          <input type="checkbox">
+        </x-field>
+        <x-whitespace block orientation="horizontal"></x-whitespace>
+        <x-field>
+          <button>Save</button>
+        </x-field>
+      </form>
+    </fieldset>
+  </x-main>
+  <x-footer>
+    <x-nav-section>
+      <x-nav-item>
+        <a href="#">Home</a>
+      </x-nav-item>
+    </x-nav-section>
+    <x-nav-section>
+      <x-nav-item>
+        <a href="#">About</a>
+      </x-nav-item>
+      <x-nav-item>
+        <a href="#">Services</a>
+      </x-nav-item>
+      <x-nav-item>
+        <a href="#">Contact</a>
+      </x-nav-item>
+    </x-nav-section>
+    <x-nav-section>
+      <x-nav-item>
+        <a href="#">Github</a>
+      </x-nav-item>
+      <x-nav-item>
+        <a href="#">Twitter</a>
+      </x-nav-item>
+    </x-nav-section>
+  </x-footer>
+</body>
+
+</html>

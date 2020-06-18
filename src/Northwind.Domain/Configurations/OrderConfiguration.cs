@@ -42,6 +42,7 @@ namespace Northwind.Domain.Configurations
         .WithMany(p => p.Orders)
         .HasForeignKey(d => d.ShipVia)
         .HasConstraintName("FK_Orders_Shippers");
+      
     }
   }
 }

@@ -1,0 +1,6 @@
+@import '_variables.css';
+
+p {
+  font-size: inherit;
+  padding: var(--padding-sm);
+}

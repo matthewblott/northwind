@@ -1,0 +1,56 @@
+<x-nav>
+  <input type="checkbox" id="x">
+  <x-nav-section>
+    <x-nav-item>
+      <a href="#">Brand</a>
+    </x-nav-item>
+  </x-nav-section>
+  <x-nav-section expand>
+    <x-nav-item>
+      <a asp-controller="Categories">Categories</a>
+    </x-nav-item>
+    <x-divider desktop></x-divider>
+    <x-nav-item>
+      <a asp-controller="Customers" asp-action="Index">Customers</a>
+    </x-nav-item>
+    <x-divider desktop></x-divider>
+    <x-nav-item>
+      <a asp-controller="Employees">Employees</a>
+    </x-nav-item>
+    <x-divider desktop></x-divider>
+    <x-nav-item>
+      <a href="#">Regions</a>
+    </x-nav-item>
+    <x-divider desktop></x-divider>
+    <x-nav-item>
+      <a href="#">Shippers</a>
+    </x-nav-item>
+    <x-divider desktop></x-divider>
+    <x-nav-item>
+      <a href="#">Suppliers</a>
+    </x-nav-item>
+    <x-divider desktop></x-divider>
+    <x-nav-item>
+      <a href="#">Territories</a>
+    </x-nav-item>
+    <x-divider desktop></x-divider>
+    <x-nav-item>
+      <a href="#">Users</a>
+    </x-nav-item>
+  </x-nav-section>
+  <x-nav-section>
+    <x-nav-item>
+      <form>
+        <input name="search" placeholder="Enter your search">
+        <button>Search</button>
+      </form>
+    </x-nav-item>
+  </x-nav-section>
+  <label for="x">
+    <x-hamburger-menu>
+      <x-hamburger></x-hamburger>
+      <x-hamburger></x-hamburger>
+      <x-hamburger></x-hamburger>
+    </x-hamburger-menu>
+  </label>
+</x-nav>

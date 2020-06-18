@@ -10,9 +10,10 @@ namespace Northwind.WebUI
   using Microsoft.AspNetCore.Hosting;
   using Microsoft.Extensions.Configuration;
   using Microsoft.Extensions.DependencyInjection;
-
+  
   public class Startup
   {
+    
     public Startup(IConfiguration configuration, IWebHostEnvironment environment)
     {
       Configuration = configuration;
@@ -25,12 +26,13 @@ namespace Northwind.WebUI
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddServices();
+      services.AddMyAuthentication();
       services.AddDbContext(Configuration);
       services.AddApplication();
-      services.AddMvcServices(Configuration.GetRazorSettings());
+      services.AddMyMvc(Configuration.GetRazorSettings());
       services.AddHttpContextAccessor();
-      services.AddRoutingOptions();
-      services.AddProjectControllers();
+      services.AddMyRouting();
+      services.AddMyControllers();
     }
 
     public void Configure(IApplicationBuilder app)
@@ -38,6 +40,7 @@ namespace Northwind.WebUI
       app.UseDeveloperExceptionPage();
       app.UseStaticFiles();
       app.UseRouting();
+      app.UseAuthentication();
       app.UseEndpoints();
     }
   }

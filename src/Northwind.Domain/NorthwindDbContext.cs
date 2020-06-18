@@ -17,6 +17,20 @@ namespace Northwind.Domain
 
   public class NorthwindDbContext : DbContext, INorthwindDbContext
   {
+    public DbSet<Category> Categories { get; set; }
+    public DbSet<Customer> Customers { get; set; }
+    public DbSet<Employee> Employees { get; set; }
+   public DbSet<EmployeeTerritory> EmployeeTerritories { get; set; }
+    public DbSet<Role> Groups { get; set; }
+    public DbSet<OrderDetail> OrderDetails { get; set; }
+    public DbSet<Order> Orders { get; set; }
+    public DbSet<Product> Products { get; set; }
+    public DbSet<Region> Region { get; set; }
+    public DbSet<Shipper> Shippers { get; set; }
+    public DbSet<Supplier> Suppliers { get; set; }
+    public DbSet<Territory> Territories { get; set; }
+    public DbSet<User> Users { get; set; }
+    public DbSet<UserRole> UserGroups { get; set; }
     private IDbContextTransaction _currentTransaction;
     private readonly ICurrentUserService _currentUserService;
     private readonly IDateTime _dateTime;
@@ -34,28 +48,6 @@ namespace Northwind.Domain
       _currentUserService = currentUserService;
       _dateTime = dateTime;
     }
-
-    public DbSet<Category> Categories { get; set; }
-
-    public DbSet<Customer> Customers { get; set; }
-
-    public DbSet<Employee> Employees { get; set; }
-
-    public DbSet<EmployeeTerritory> EmployeeTerritories { get; set; }
-
-    public DbSet<OrderDetail> OrderDetails { get; set; }
-
-    public DbSet<Order> Orders { get; set; }
-
-    public DbSet<Product> Products { get; set; }
-
-    public DbSet<Region> Region { get; set; }
-
-    public DbSet<Shipper> Shippers { get; set; }
-
-    public DbSet<Supplier> Suppliers { get; set; }
-
-    public DbSet<Territory> Territories { get; set; }
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
     {
@@ -151,7 +143,7 @@ namespace Northwind.Domain
       {
         await SaveChangesAsync().ConfigureAwait(false);
 
-        _currentTransaction?.Commit();
+        if (_currentTransaction != null) await _currentTransaction?.CommitAsync();
       }
       catch
       {

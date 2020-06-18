@@ -29,11 +29,13 @@ namespace Northwind.Application.Customers.Queries
     {
       public string Id { get; set; }
       
-      [Display(Name = "Company")]
+      [Required]
+      [StringLength(40, MinimumLength = 10)]
+      [Display(Name = "Company", Prompt = "Company name here")]
       public string CompanyName { get; set; }
-      [Display(Name = "Contact Title")]
+      [Required]
       public string ContactTitle { get; set; }
-      [Display(Name = "Contact Name")]
+      [Required]
       public string ContactName { get; set; }
       public string Phone { get; set; }
       public string Fax { get; set; }
@@ -48,9 +50,9 @@ namespace Northwind.Application.Customers.Queries
         profile.CreateMap<Customer, Model>()
           .ForMember(d => d.Id, opt => opt.MapFrom(s => s.CustomerId));
       }
-
+      
     }
-
+    
     public class Handler : IRequestHandler<Query, Model>
     {
       private readonly INorthwindDbContext _db;

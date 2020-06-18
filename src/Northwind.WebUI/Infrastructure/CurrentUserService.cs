@@ -4,6 +4,8 @@ using Northwind.Application.Common.Interfaces;
 
 namespace Northwind.WebUI.Infrastructure
 {
+  using Common;
+
   public class CurrentUserService : ICurrentUserService
   {
     // Remember to add the configuration for IHttpContextAccessor in Startup

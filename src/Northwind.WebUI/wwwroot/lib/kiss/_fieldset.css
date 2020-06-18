@@ -1,0 +1,7 @@
+@import '_variables.css';
+
+fieldset {
+  border: none;
+  display: grid;
+  flex-direction: column;
+}

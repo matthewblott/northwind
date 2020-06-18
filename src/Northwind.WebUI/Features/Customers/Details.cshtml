@@ -1,23 +1,50 @@
 @model Details.Model
 
-<form method="post" asp-action="Update">
-  <label asp-for="Id"></label>
-  <input asp-for="Id">
-  
-  <label asp-for="CompanyName"></label>
-  <input asp-for="CompanyName">
-  
-  <label asp-for="ContactTitle"></label>
-  <input asp-for="ContactTitle">
-  
-  <label asp-for="ContactName"></label>
-  <input asp-for="ContactName">
-  
-  <label asp-for="Phone"></label>
-  <input asp-for="Phone">
-  
-  <label asp-for="Fax"></label>
-  <input asp-for="Fax">
-  
-  <button>Save</button>
-</form>
+<fieldset>
+  <form method="post" asp-action="Update">
+    <x-field>
+      <label asp-for="Id"></label>
+      <input asp-for="Id">
+    </x-field>
+    <x-field>
+      <label asp-for="CompanyName"></label>
+      <input asp-for="CompanyName">
+    </x-field>
+    <x-field>
+      <label asp-for="ContactTitle"></label>
+      <input asp-for="ContactTitle">
+    </x-field>
+    <x-field>
+      <label asp-for="ContactName"></label>
+      <input asp-for="ContactName">
+    </x-field>
+    <x-field>
+      <label asp-for="Phone"></label>
+      <input asp-for="Phone">
+    </x-field>
+    <x-field>
+      <label asp-for="Fax"></label>
+      <input asp-for="Fax">
+    </x-field>
+    <x-field>
+      <label>Role</label>
+      <x-block>
+        <x-border>
+          <select name="Role">
+            <option disabled selected>-- Select --</option>
+            <option value="1">User</option>
+            <option value="2">Super User</option>
+            <option value="3">Administrator</option>
+          </select>
+        </x-border>
+      </x-block>
+    </x-field>
+    <x-field>
+      <label>Confrm</label>
+      <input type="checkbox">
+    </x-field>
+    <x-field>
+      <button>Save</button>
+    </x-field>
+  </form>
+</fieldset>

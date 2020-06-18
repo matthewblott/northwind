@@ -1,9 +1,22 @@
 ﻿<!doctype html>
 <html lang="en">
-<head>
-  <partial name="_Head" />
-</head>
+<partial name="_Head"/>
 <body>
-@RenderBody()
+
+<x-header>
+  <partial name="_Nav" asp-authorize/>
+</x-header>
+
+<x-main>
+  @if (User.Identity.IsAuthenticated)
+  {
+    <div>Welcome @User.Identity.Name</div>
+  }
+  
+  @RenderBody()
+</x-main>
+
+<partial name="_Footer" asp-authorize/>
+
 </body>
 </html>

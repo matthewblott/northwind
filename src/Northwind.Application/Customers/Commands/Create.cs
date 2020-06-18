@@ -57,8 +57,6 @@ namespace Northwind.Application.Customers.Commands
 
       public async Task<Unit> Handle(Command command, CancellationToken token)
       {
-        // var entity = _mapper.Map<Command, Customer>(command);
-
         var entity = new Customer
         {
           CustomerId = command.Id.ToUpper(),
@@ -70,36 +68,13 @@ namespace Northwind.Application.Customers.Commands
         };
         
         await _db.Customers.AddAsync(entity, token);
-        
         await _db.SaveChangesAsync(token);
 
-        // await _mediator.Publish(new CustomerCreated {CustomerId = entity.CustomerId}, token);
-        
         return Unit.Value;
 
       }
       
     }
-    
-    // public class Created : INotification
-    // {
-    //   public string CustomerId { get; set; }
-    //
-    //   public class CustomerCreatedHandler : INotificationHandler<Created>
-    //   {
-    //     private readonly INotificationService _notification;
-    //
-    //     public CustomerCreatedHandler(INotificationService notification)
-    //     {
-    //       _notification = notification;
-    //     }
-    //
-    //     public async Task Handle(Created notification, CancellationToken cancellationToken)
-    //     {
-    //       await _notification.SendAsync(new MessageDto());
-    //     }
-    //   }
-    // }
     
   }
   

@@ -4,6 +4,7 @@
   using Common.Interfaces;
   using System.Threading;
   using System.Threading.Tasks;
+  using Northwind.Common;
 
   public class DeleteEmployeeCommand : IRequest
   {

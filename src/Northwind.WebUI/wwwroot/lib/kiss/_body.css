@@ -1,0 +1,11 @@
+@import '_variables.css';
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  font-family: var(--font-family);
+  color: var(--color-font);
+  background-color: var(--color-background);
+  font-size: var(--font-size);
+}

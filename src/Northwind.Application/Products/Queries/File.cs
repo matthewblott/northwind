@@ -18,7 +18,7 @@ namespace Northwind.Application.Products.Queries
     {
       public ProductFileRecordMap()
       {
-        AutoMap();
+        //AutoMap();
         Map(m => m.UnitPrice).Name("Unit Price").ConvertUsing(c => (c.UnitPrice ?? 0).ToString("C"));
       }
     }

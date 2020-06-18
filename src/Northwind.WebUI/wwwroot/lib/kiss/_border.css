@@ -1,0 +1,8 @@
+@import '_variables.css';
+
+x-border {
+  border: solid var(--color-border) 1px;
+  border-radius: var(--border-radius);
+  display:inline-block;
+  overflow:hidden;
+}

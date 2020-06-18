@@ -1,0 +1,10 @@
+@import '_variables.css';
+
+select {
+  color: var(--color-font);
+  font-size: inherit;
+  border: none;
+  
+  /* Safari */
+  -webkit-appearance:none;
+}
