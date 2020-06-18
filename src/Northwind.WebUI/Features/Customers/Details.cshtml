@@ -28,20 +28,23 @@
     </x-field>
     <x-field>
       <label>Role</label>
-      <x-block>
-        <x-border>
-          <select name="Role">
-            <option disabled selected>-- Select --</option>
-            <option value="1">User</option>
-            <option value="2">Super User</option>
-            <option value="3">Administrator</option>
-          </select>
-        </x-border>
-      </x-block>
+      <select name="Role">
+        <option disabled selected>-- Select --</option>
+        <option value="1">User</option>
+        <option value="2">Super User</option>
+        <option value="3">Administrator</option>
+      </select>
     </x-field>
     <x-field>
-      <label>Confrm</label>
-      <input type="checkbox">
+      
+      <label for="checkbox">
+        <span class="checkable">Confirm</span>
+      </label>
+      
+      <label>
+        <input type="checkbox" id="checkbox">
+        <span class="checkable"></span>
+      </label>
     </x-field>
     <x-field>
       <button>Save</button>
