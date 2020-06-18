@@ -9,27 +9,17 @@ namespace Northwind.WebUI.Tags
   public static class TagHelperExtensions
   {
     public static bool HasDisplayName(this ModelExpression expression)
-      => !string.IsNullOrWhiteSpace(GetDisplay(expression)?.Name);
-
+      => !string.IsNullOrWhiteSpace(GetAttribute<DisplayAttribute>(expression)?.Name);
+    
     public static bool HasDisplayPrompt(this ModelExpression expression) 
-      => !string.IsNullOrWhiteSpace(GetDisplay(expression)?.Prompt);
+      => !string.IsNullOrWhiteSpace(GetAttribute<DisplayAttribute>(expression)?.Prompt);
     
     public static bool HasRequired(this ModelExpression expression)
       => GetAttribute<RequiredAttribute>(expression) != null;
 
-    // public static int GetStringLengthMax(this ModelExpression expression)
-    //   => GetStringLength(expression)?.MaximumLength ?? default;
-    
     public static int GetStringLengthMin(this ModelExpression expression)
-      => GetStringLength(expression)?.MinimumLength ?? default;
+      => expression == null ? default : GetAttribute<StringLengthAttribute>(expression)?.MinimumLength ?? default;
     
-    private static StringLengthAttribute GetStringLength(ModelExpression expression) 
-      => expression == null ? null : GetAttribute<StringLengthAttribute>(expression);
-    
-    
-    private static DisplayAttribute GetDisplay(ModelExpression expression) 
-      => expression == null ? null : GetAttribute<DisplayAttribute>(expression);
-
     private static T GetAttribute<T>(ModelExpression expression)
     {
       if (expression == null)
