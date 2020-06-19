@@ -9,3 +9,5 @@ Features are added as examples to use in real world projects, more will be added
 3. Custom tag helpers for providing HTML5 validation (i.e. JavaScript free!).
 4. Barely any JavaScript at all.
 5. Picnic css library for simplicity (hopefully divitus free HTML markup).
+6. No setup steps (see next).
+6. Sqlite database - no configuration or setting up of tables, just download the project and run it (and expect it to work!).
