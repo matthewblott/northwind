@@ -1,0 +1,62 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+
+
+  <link rel="stylesheet" href="/lib/picnic/picnic.css">
+  <script src="/lib/htmx/htmx.js"></script>
+
+
+  <script src="/lib/turbolinks/turbolinks.min.js" defer></script>
+
+
+  <script>
+
+    document.addEventListener('turbolinks:load', () => {
+      document.querySelectorAll('.input__date').forEach((picker) =>
+          new Litepicker({ element: picker, format: 'YYYY-MM-DD' }));
+    });
+
+  </script>
+  
+  <link rel="stylesheet" href="/lib/aspnet-validation/css/aspnet-validation.css">
+
+  <script src="/lib/aspnet-validation/js/aspnet-validation.js" defer></script>
+
+
+  <link rel="stylesheet" href="/css/main.css">
+
+
+</head>
+<body>
+
+  <div>Welcome admin</div>
+
+  <form id="form1">
+
+    <label>
+      Message :
+      <input name="Message" value="Change this text to anything you like.">
+
+    </label>
+
+    <button hx-post="/Customers/PostTest" hx-target="#form1">Submit</button>
+
+  </form>
+
+  <div id="message-received"></div>
+
+  <script>
+    
+    // Need something like ...
+    // Intercooler.processNodes($('body'));
+    
+  </script>
+
+
+</body>
+</html>

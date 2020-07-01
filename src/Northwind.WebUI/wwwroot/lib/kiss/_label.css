@@ -1,6 +1,0 @@
-@import '_variables.css';
-
-label {
-  color: var(--color-font);
-  background-color: var(--color-background);
-}

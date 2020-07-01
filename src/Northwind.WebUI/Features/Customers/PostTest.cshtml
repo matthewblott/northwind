@@ -1,0 +1,16 @@
+@model Northwind.WebUI.Features.Customers.CustomersController.PostTestViewModel
+
+<form hx-post="/Customers/PostTest" hx-target="#message-received">
+
+  <label>
+    Message :
+    <input asp-for="Message">
+  </label>
+
+  <input id="validator1" type="checkbox" required>
+  
+  <button>Submit</button>
+
+</form>
+
+<div id="message-received"></div>

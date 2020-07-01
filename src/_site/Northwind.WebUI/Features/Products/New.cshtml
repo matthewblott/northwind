@@ -1,0 +1,33 @@
+@model Northwind.Application.Products.Commands.Create.Command
+
+<fieldset>
+  <form method="post" asp-action="Create">
+    <x-field>
+      <label>Id</label>
+      <input value="[New]" readonly>
+    </x-field>
+    <x-field>
+      <label asp-for="ProductName"></label>
+      <input asp-for="ProductName">
+    </x-field>
+    <x-field>
+      <label asp-for="UnitPrice"></label>
+      <input asp-for="UnitPrice">
+    </x-field>
+    <x-field>
+      <label asp-for="SupplierId"></label>
+      <input asp-for="SupplierId">
+    </x-field>
+    <x-field>
+      <label asp-for="CategoryId"></label>
+      <input asp-for="CategoryId">
+    </x-field>
+    <x-field>
+      <label asp-for="Discontinued"></label>
+      <input asp-for="Discontinued" type="checkbox">
+    </x-field>
+    <x-field>
+      <button>Save</button>
+    </x-field>
+  </form>
+</fieldset>

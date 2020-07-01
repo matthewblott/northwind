@@ -1,0 +1,14 @@
+<environment include="Development">
+  <script src="~/lib/litepicker/js/main.nocss.js"></script>
+</environment>
+<environment include="Staging,Production">
+  <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/js/main.nocss.js"></script>
+</environment>
+<script>
+
+  document.addEventListener('turbolinks:load', () => {
+    document.querySelectorAll('.input__date').forEach((picker) => 
+      new Litepicker({ element: picker, format: 'YYYY-MM-DD' }));
+  });
+  
+</script>

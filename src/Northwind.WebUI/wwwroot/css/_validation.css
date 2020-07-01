@@ -1,0 +1,16 @@
+[data-validation]:invalid:not(:placeholder-shown) {
+  color: #ee5f5b;
+}
+
+input[type="radio"][required]:invalid ~ span[data-validation]::before {
+  content: "*";
+  color: #ee5f5b;
+}
+
+[data-validation][required]:placeholder-shown {
+  display: block;
+  background-image: linear-gradient(45deg, transparent, transparent 50%, #ee5f5b 50%, #ee5f5b 100%);
+  background-position: top right;
+  background-size: .6em .6em;
+  background-repeat: no-repeat;
+}

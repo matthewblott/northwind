@@ -1,0 +1,21 @@
+@model Northwind.Application.Categories.Commands.Create.Command
+
+<fieldset>
+  <form method="post" asp-action="Create">
+  <x-field>
+    <label asp-for="Id">Id</label>
+    <input value="[New]" readonly>
+  </x-field>
+  <x-field>
+    <label asp-for="CategoryName"></label>
+    <input asp-for="CategoryName">
+  </x-field>
+  <x-field>
+    <label asp-for="Description"></label>
+    <input asp-for="Description">
+  </x-field>
+  <x-field>
+    <button>Save</button>
+  </x-field>
+  </form>
+</fieldset>
