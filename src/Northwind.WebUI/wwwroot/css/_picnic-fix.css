@@ -1,0 +1,15 @@
+a {
+  color: inherit;
+}
+
+a:hover {
+  color: var(--color-border);
+}
+
+input {
+  width: inherit;
+}
+
+select {
+  width: inherit;
+}

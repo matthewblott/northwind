@@ -19,7 +19,11 @@ namespace Northwind.Tests
     {
       base.ConfigureServices(services);
 
-      // services.ReplaceDbContext();  
+      // Test framework adds to Configuration Providers with the sources
+      // testconfig.json and testsettings.json
+      // It may be preferable to configure settings in one of the above files
+      // and skip running the ReplaceDbContext method to keep the code cleaner.
+      services.ReplaceDbContext();  
 
       services.ReplaceTransient<IDateTime>(_ => MachineDateTimeMock.Instance);
 

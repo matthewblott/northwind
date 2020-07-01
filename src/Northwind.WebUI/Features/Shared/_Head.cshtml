@@ -1,17 +1,26 @@
-<head>
-  
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>@ViewData["Title"]</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>@ViewData["Title"]</title>
 
-  @* Libraries *@
-  <environment include="Development">
-    <link rel="stylesheet" href="~/lib/picnic/picnic.css">
-    </environment>
-  <environment include="Staging,Production">
-    <link rel="stylesheet" href="~/lib/picnic/picnic.min.css">
-  </environment>
-  
-  <link rel="stylesheet" href="~/lib/kiss/main.css">
+@* Libraries *@
+<script src="~/lib/turbolinks/turbolinks.min.js"></script>
+<environment include="Development">
+  <link rel="stylesheet" href="~/lib/picnic/picnic.css">
+  <script src="~/lib/htmx/htmx.js"></script>
+</environment>
+<environment include="Staging,Production">
+  <link rel="stylesheet" href="~/lib/picnic/picnic.min.css">
+  <script src="https://unpkg.com/htmx.org@0.0.6/dist/htmx.min.js"></script>
+</environment>
 
-</head>
+@* Custom *@
+<partial name="Styles/_Calendar" />
+<partial name="Scripts/_Calendar" />
+<partial name="Styles/_Validation" />
+<partial name="Scripts/_Validation" />
+
+<link rel="stylesheet" href="~/css/main.css">
+
+<script>
+  document.addEventListener('turbolinks:load', () => htmx.process(document.body));
+</script>

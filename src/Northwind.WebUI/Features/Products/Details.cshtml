@@ -1,0 +1,41 @@
+@model Northwind.Application.Products.Queries.Details.Model
+
+<fieldset>
+  <form method="post" asp-action="Update">
+    <x-field>
+      <label asp-for="Id"></label>
+      <input asp-for="Id" readonly>
+    </x-field>
+    <x-field>
+      <label asp-for="ProductName"></label>
+      <input asp-for="ProductName">
+    </x-field>
+    <x-field>
+      <label asp-for="UnitPrice"></label>
+      <input asp-for="UnitPrice">
+    </x-field>
+    <x-field>
+      <label asp-for="SupplierId"></label>
+      <input asp-for="SupplierId">
+    </x-field>
+    <x-field>
+      <label asp-for="SupplierCompanyName"></label>
+      <input asp-for="SupplierCompanyName">
+    </x-field>
+    <x-field>
+      <label asp-for="CategoryId"></label>
+      <input asp-for="CategoryId">
+    </x-field>
+    <x-field>
+      <label asp-for="CategoryName"></label>
+      <input asp-for="CategoryName">
+    </x-field>
+    <x-field>
+      <label asp-for="Discontinued"></label>
+      <input asp-for="Discontinued" type="checkbox">
+    </x-field>
+    <x-field>
+      <button>Save</button>
+    </x-field>
+  </form>
+</fieldset>

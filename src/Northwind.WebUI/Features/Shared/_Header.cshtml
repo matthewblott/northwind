@@ -1,0 +1,52 @@
+<x-header>
+  <x-nav>
+    <input type="checkbox" id="x">
+    <x-nav-section>
+      <x-nav-item>
+        <a asp-controller="Home" asp-action="Index">Home</a>
+      </x-nav-item>
+      <x-divider desktop></x-divider>
+    </x-nav-section>
+    <x-nav-section expand>
+      <x-nav-item>
+        <a asp-controller="Categories" asp-action="Index">Categories</a>
+      </x-nav-item>
+      <x-divider desktop></x-divider>
+      <x-nav-item>
+        <a asp-controller="Customers" asp-action="Index">Customers</a>
+      </x-nav-item>
+      <x-divider desktop></x-divider>
+      <x-nav-item>
+        <a asp-controller="Customers" asp-action="PostTest">Post Test</a>
+      </x-nav-item>
+      <x-divider desktop></x-divider>
+      <x-nav-item>
+        <a asp-controller="Employees" asp-action="Index">Employees</a>
+      </x-nav-item>
+      <x-divider desktop></x-divider>
+      <x-nav-item>
+        <a asp-controller="Products" asp-action="Index">Products</a>
+      </x-nav-item>
+    </x-nav-section>
+    <x-nav-section>
+      <x-nav-item>
+        <form>
+          <input name="search" placeholder="Enter your search">
+          <button>Search</button>
+        </form>
+      </x-nav-item>
+      <x-nav-item>
+        <form method="post" asp-controller="Account" asp-action="Logout" asp-authorize>
+          <button>Logout</button>
+        </form>
+      </x-nav-item>
+    </x-nav-section>
+    <label for="x">
+      <x-hamburger-menu>
+        <x-hamburger></x-hamburger>
+        <x-hamburger></x-hamburger>
+        <x-hamburger></x-hamburger>
+      </x-hamburger-menu>
+    </label>
+  </x-nav>
+</x-header>

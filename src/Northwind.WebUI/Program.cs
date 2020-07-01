@@ -7,7 +7,7 @@ namespace Northwind.WebUI
   using NLog;
   using NLog.Web;
 
-  public class Program
+  public static class Program
   {
     public static int Main(string[] args)
     {

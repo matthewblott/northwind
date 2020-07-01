@@ -1,22 +1,48 @@
 ﻿<!doctype html>
 <html lang="en">
-<partial name="_Head"/>
+<head>
+  <partial name="_Head"/>
+  @await RenderSectionAsync("Styles", false)
+</head>
 <body>
 
-<x-header>
-  <partial name="_Nav" asp-authorize/>
-</x-header>
+<partial name="_Header" asp-authorize/>
+
+<style>
+  
+  message-bar {
+    display: flex;
+    flex-direction: column;
+    padding-left: var(--padding-md);
+  }
+  
+  /* Desktop */
+  @@media screen and (min-width: 768px) {
+    message-bar {
+      display: flex;
+      flex-direction: row;
+    }
+
+    message-bar welcome {
+      padding-right: var(--padding-lg);
+    }
+    
+  }
+
+</style>
+
+<message-bar>
+  <welcome asp-authenticated>Welcome @User.Identity.Name</welcome><message>@TempData["_message"]</message>
+</message-bar>
 
 <x-main>
-  @if (User.Identity.IsAuthenticated)
-  {
-    <div>Welcome @User.Identity.Name</div>
-  }
+  <h1>@ViewData["Title"]</h1>
   
   @RenderBody()
 </x-main>
 
-<partial name="_Footer" asp-authorize/>
+<partial name="_Footer" asp-authorize />
+@await RenderSectionAsync("Scripts", false)
 
 </body>
 </html>

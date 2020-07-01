@@ -1,0 +1,20 @@
+<environment include="Development">
+  <script src="~/lib/aspnet-validation/js/aspnet-validation.js" defer></script>
+</environment>
+<environment include="Staging,Production">
+  <!-- Need to compile a min version -->
+  <script src="~/lib/aspnet-validation/js/aspnet-validation.js" defer></script>
+</environment>
+<script>
+  
+  document.addEventListener('turbolinks:load', () => {
+    
+    const service = new aspnetValidation.ValidationService();
+    
+    service.addMvcProviders();
+    service.scanMessages();
+    service.scanInputs();
+    
+  });
+  
+</script>
