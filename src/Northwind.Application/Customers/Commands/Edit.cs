@@ -3,8 +3,8 @@ namespace Northwind.Application.Customers.Commands
   using System.Threading;
   using System.Threading.Tasks;
   using AutoMapper;
-  using Common.Interfaces;
   using Common.Mappings;
+  using Domain;
   using Domain.Entities;
   using FluentValidation;
   using FluentValidation.Validators;
@@ -41,7 +41,7 @@ namespace Northwind.Application.Customers.Commands
       {
         var id = query.Id.ToUpper();
         var entity = await _db.Customers.FindAsync(id);
-
+        
         return _mapper.Map<Command>(entity);
       }
       

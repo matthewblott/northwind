@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "NorthwindDatabase": "DataSource=/Users/Matt/Dev/exercises/northwind/src/Northwind.Tests/db/northwind_test.db"
+  }
+}

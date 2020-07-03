@@ -53,18 +53,20 @@ namespace Northwind.Tests
         .ActionAttributes(attributes => attributes.RestrictingForHttpMethod(HttpMethod.Post));
     }
 
-    [Test, AutoData]
+    [Test] // AutoData
     // ReSharper disable once NUnit.MethodWithParametersAndTestAttribute
-    public void Should_fetch_customer_using_the_correct_id(string customerId)
+    public void Should_fetch_customer_using_the_correct_id()
     {
+      const string customerId = "ANTON";
       
       var query = new Edit.Query
       {
-        Id = customerId.Substring(0, 5)
-        // Id = "ABCDE",
+        Id = customerId
       };
 
       MyController<CustomersController>
+        .Instance()
+        .WithData()
         .Calling(c => c.Edit(query))
         .ShouldReturn()
         .View(view => view

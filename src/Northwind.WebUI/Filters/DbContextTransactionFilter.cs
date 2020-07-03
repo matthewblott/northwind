@@ -7,9 +7,9 @@ namespace Northwind.WebUI.Filters
 
   public class DbContextTransactionFilter : IAsyncActionFilter
   {
-    private readonly NorthwindDbContext _db;
+    private readonly IDbContextTransaction _db;
 
-    public DbContextTransactionFilter(NorthwindDbContext db)
+    public DbContextTransactionFilter(IDbContextTransaction db)
     {
       _db = db;
     }

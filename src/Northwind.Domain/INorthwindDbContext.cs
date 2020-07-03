@@ -1,7 +1,7 @@
-﻿namespace Northwind.Application.Common.Interfaces
+﻿namespace Northwind.Domain
 {
   using Microsoft.EntityFrameworkCore;
-  using Domain.Entities;
+  using Entities;
   using System.Threading;
   using System.Threading.Tasks;
   
@@ -23,5 +23,7 @@
     DbSet<UserRole> UserGroups { get; set; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+
   }
+  
 }

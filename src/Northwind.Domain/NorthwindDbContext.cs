@@ -8,19 +8,20 @@ namespace Northwind.Domain
   using System.Threading.Tasks;
   using Microsoft.EntityFrameworkCore;
   using Microsoft.EntityFrameworkCore.Storage;
-  using Northwind.Application.Common.Interfaces;
   using Northwind.Common;
   using Common;
   using Entities;
   using FluentValidation;
   using FluentValidation.Results;
 
-  public class NorthwindDbContext : DbContext, INorthwindDbContext
+  public class NorthwindDbContext : DbContext, INorthwindDbContext, IDbContextTransaction
   {
+    public string ConnectionString => Database.GetDbConnection().ConnectionString;
+
     public DbSet<Category> Categories { get; set; }
     public DbSet<Customer> Customers { get; set; }
     public DbSet<Employee> Employees { get; set; }
-   public DbSet<EmployeeTerritory> EmployeeTerritories { get; set; }
+    public DbSet<EmployeeTerritory> EmployeeTerritories { get; set; }
     public DbSet<Role> Groups { get; set; }
     public DbSet<OrderDetail> OrderDetails { get; set; }
     public DbSet<Order> Orders { get; set; }
@@ -31,7 +32,7 @@ namespace Northwind.Domain
     public DbSet<Territory> Territories { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<UserRole> UserGroups { get; set; }
-    private IDbContextTransaction _currentTransaction;
+    private Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction _currentTransaction;
     private readonly ICurrentUserService _currentUserService;
     private readonly IDateTime _dateTime;
 
@@ -124,7 +125,7 @@ namespace Northwind.Domain
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-      modelBuilder.ApplyConfigurationsFromAssembly(typeof(NorthwindDbContext).Assembly);
+      modelBuilder.ApplyConfigurationsFromAssembly(typeof(INorthwindDbContext).Assembly);
     }
     
     public async Task BeginTransactionAsync()

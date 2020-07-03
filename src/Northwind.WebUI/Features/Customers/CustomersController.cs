@@ -6,6 +6,7 @@ namespace Northwind.WebUI.Features.Customers
   using Application.Customers.Queries;
   using Infrastructure;
   using MediatR;
+  using Microsoft.AspNetCore.Authorization;
   using Shared;
 
   public class CustomersController : Controller

@@ -9,7 +9,6 @@ namespace Northwind.WebUI.Infrastructure
   using Microsoft.EntityFrameworkCore;
   using Microsoft.Extensions.Configuration;
   using Microsoft.Extensions.DependencyInjection;
-  using Northwind.Application.Common.Interfaces;
   using Common;
   using Domain;
   using Filters;
@@ -46,10 +45,6 @@ namespace Northwind.WebUI.Infrastructure
     }
     public static void AddMyAuthentication(this IServiceCollection services)
     {
-      services.AddAuthorization();
-      
-      // IsHashed
-      
       services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
     }
     
@@ -62,13 +57,13 @@ namespace Northwind.WebUI.Infrastructure
         enabled = true;
 #endif
         // ReSharper disable once ConditionIsAlwaysTrueOrFalse
-        options.UseSqlite(configuration.GetConnectionString("NorthwindDatabase"))
-          .EnableSensitiveDataLogging(enabled);
+        options.UseSqlite(configuration.GetConnectionString("NorthwindDatabase")).EnableSensitiveDataLogging(enabled);
       });
 
-      services.AddScoped<INorthwindDbContext>(provider => provider.GetService<NorthwindDbContext>());
+      services.AddScoped<INorthwindDbContext>(provider => provider.GetRequiredService<NorthwindDbContext>());
+      services.AddScoped<IDbContextTransaction>(provider => provider.GetRequiredService<NorthwindDbContext>());
     }
-
+    
     public static void AddMyControllers(this IServiceCollection services)
     {
       services.AddControllersWithViews(options => { options.Filters.Add(typeof(DbContextTransactionFilter)); })
@@ -91,7 +86,7 @@ namespace Northwind.WebUI.Infrastructure
       });
 
       var isAllowed = (settings ?? new RazorSettings()).AllowRuntimeCompilation;
-
+      
       if (isAllowed)
       {
         builder.AddRazorRuntimeCompilation();

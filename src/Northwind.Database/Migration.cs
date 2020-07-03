@@ -1,4 +1,4 @@
-﻿namespace Northwind.Database
+namespace Northwind.Database
 {
   using System;
   using System.IO;
@@ -7,13 +7,14 @@
   using Microsoft.Data.Sqlite;
   using Microsoft.Extensions.Configuration;
 
-  internal static class Program
+  public static class Migration
   {
-    private static void Main(string[] args)
+    public static void Migrate()
     {
-      var assembly = Assembly.GetExecutingAssembly();
-      var assemblyName = assembly.GetName().Name?.ToLower();
-      var info = Directory.GetParent(assembly.Location);
+      var thisAssembly = Assembly.GetExecutingAssembly();
+      var entryAssembly = Assembly.GetEntryAssembly();
+      var assemblyName = entryAssembly?.GetName().Name?.ToLower();
+      var info = Directory.GetParent(entryAssembly?.Location);
 
       while (info?.Name.ToLower() != assemblyName)
       {
@@ -35,7 +36,7 @@
       var runner =
         DeployChanges.To
           .SQLiteDatabase(conn.ConnectionString)
-          .WithScriptsEmbeddedInAssembly(assembly)
+          .WithScriptsEmbeddedInAssembly(thisAssembly)
           .LogToConsole()
           .LogScriptOutput()
           .WithTransaction()
@@ -59,6 +60,6 @@
       {
         Console.WriteLine("Scripts deployed successfully");
       }
-    }
+    }    
   }
 }

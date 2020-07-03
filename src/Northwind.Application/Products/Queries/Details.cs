@@ -1,11 +1,11 @@
 namespace Northwind.Application.Products.Queries
 {
   using AutoMapper;
-  using Common.Interfaces;
   using Domain.Entities;
   using System.Threading;
   using System.Threading.Tasks;
   using Common.Mappings;
+  using Domain;
   using MediatR;
 
   public class Details

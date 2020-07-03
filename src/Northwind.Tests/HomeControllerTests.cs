@@ -15,7 +15,9 @@ namespace Northwind.Tests
     [Test]
     public void IndexShouldReturnView()
     {
-      MyController<HomeController>.Instance().Calling(c => c.Index())
+      MyController<HomeController>
+        .Instance()
+        .Calling(c => c.Index())
         .ShouldReturn()
         .View();
       

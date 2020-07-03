@@ -2,7 +2,7 @@ namespace Northwind.Application.Employees.Commands
 {
   using System.Threading;
   using System.Threading.Tasks;
-  using Common.Interfaces;
+  using Domain;
   using FluentValidation;
   using MediatR;
 
