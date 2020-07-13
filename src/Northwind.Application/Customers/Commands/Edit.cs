@@ -41,7 +41,7 @@ namespace Northwind.Application.Customers.Commands
       {
         var id = query.Id.ToUpper();
         var entity = await _db.Customers.FindAsync(id);
-
+        
         return _mapper.Map<Command>(entity);
       }
       

@@ -2,10 +2,10 @@ namespace Northwind.Application.Categories.Queries
 {
   using System.Collections.Generic;
   using AutoMapper;
-  using Common.Interfaces;
   using Domain.Entities;
   using System.Threading;
   using System.Threading.Tasks;
+  using Common.Interfaces;
   using Common.Mappings;
   using FluentValidation;
   using MediatR;

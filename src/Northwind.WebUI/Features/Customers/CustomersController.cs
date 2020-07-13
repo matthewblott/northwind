@@ -4,8 +4,8 @@ namespace Northwind.WebUI.Features.Customers
   using System.Threading.Tasks;
   using Application.Customers.Commands;
   using Application.Customers.Queries;
-  using Infrastructure;
   using MediatR;
+  using Microsoft.AspNetCore.Authorization;
   using Shared;
 
   public class CustomersController : Controller
@@ -24,8 +24,6 @@ namespace Northwind.WebUI.Features.Customers
     {
       await _mediator.Send(command);
 
-      // return NoContent();
-
       return PartialView("_Message");
     }
 
@@ -43,8 +41,6 @@ namespace Northwind.WebUI.Features.Customers
 
       var header = $"/Customers/Edit/{command.Id}";
       
-      // Response.Headers["Location"].ToString()
-      
       Response.Headers.Add("Turbolinks-Location", header);
       
       return PartialView("_Redirect", viewModel);
@@ -57,31 +53,7 @@ namespace Northwind.WebUI.Features.Customers
 
       return NoContent();
     }
-
-    public IActionResult PostTest()
-    {
-      var viewModel = new PostTestViewModel
-      {
-        Message = "Change this text to anything you like."
-      };
-
-      return View(viewModel);
-    }
-
-    [HttpPost]
-    public IActionResult PostTest(PostTestViewModel viewModel)
-    {
-      var message = new MessageViewModel
-      {
-        Message = viewModel.Message
-      };
-
-      return PartialView("_Message", message);
-    }
-
-    public class PostTestViewModel
-    {
-      public string Message { get; set; }
-    }
+    
   }
+  
 }

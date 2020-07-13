@@ -7,6 +7,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Northwind.Common\Northwind.Common.csproj" />
+    <ProjectReference Include="..\Northwind.Database\Northwind.Database.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="db\**" />
   </ItemGroup>
 
 </Project>

@@ -6,8 +6,8 @@ namespace Northwind.WebUI
   using Microsoft.Extensions.Logging;
   using NLog;
   using NLog.Web;
-
-  public static class Program
+  
+  public class Program
   {
     public static int Main(string[] args)
     {
@@ -17,7 +17,8 @@ namespace Northwind.WebUI
       {
         logger.Debug("init main");
         
-        var host = CreateHost(args);
+        var host = CreateHostBuilder(args)
+          .Build();;
         
         host.Run();
         
@@ -36,15 +37,11 @@ namespace Northwind.WebUI
 
     }
 
-    private static IHost CreateHost(string[] args) =>
+    public static IHostBuilder CreateHostBuilder(string[] args) =>
       Host.CreateDefaultBuilder(args)
         .ConfigureWebHostDefaults(builder => builder.UseStartup<Startup>())
-        .ConfigureLogging(logging =>
-        {
-          logging.ClearProviders();
-        })
-        .UseNLog()
-        .Build();
+        .ConfigureLogging(logging => logging.ClearProviders())
+        .UseNLog();
 
   }
   
