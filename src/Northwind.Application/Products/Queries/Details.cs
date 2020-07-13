@@ -4,8 +4,8 @@ namespace Northwind.Application.Products.Queries
   using Domain.Entities;
   using System.Threading;
   using System.Threading.Tasks;
+  using Common.Interfaces;
   using Common.Mappings;
-  using Domain;
   using MediatR;
 
   public class Details

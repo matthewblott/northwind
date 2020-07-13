@@ -3,7 +3,7 @@ namespace Northwind.Application.Products.Commands
   using System.Linq;
   using System.Threading;
   using System.Threading.Tasks;
-  using Domain;
+  using Common.Interfaces;
   using FluentValidation;
   using MediatR;
 

@@ -4,7 +4,7 @@ namespace Northwind.Application.Products.Commands
   using System.Threading;
   using System.Threading.Tasks;
   using AutoMapper;
-  using Domain;
+  using Common.Interfaces;
   using FluentValidation;
   using MediatR;
 

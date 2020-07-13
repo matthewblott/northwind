@@ -9,8 +9,8 @@ namespace Northwind.WebUI.Features.Account
   using Microsoft.AspNetCore.Authorization;
   using Microsoft.AspNetCore.Mvc;
   using Application.Account.Commands;
-  using Infrastructure;
-  
+  using Northwind.Common;
+
   public class AccountController : Controller
   {
     private readonly IMediator _mediator;

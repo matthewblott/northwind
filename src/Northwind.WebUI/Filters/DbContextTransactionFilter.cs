@@ -2,8 +2,10 @@ namespace Northwind.WebUI.Filters
 {
   using System;
   using System.Threading.Tasks;
+  using Application.Common.Interfaces;
   using Domain;
   using Microsoft.AspNetCore.Mvc.Filters;
+  using Persistence;
 
   public class DbContextTransactionFilter : IAsyncActionFilter
   {

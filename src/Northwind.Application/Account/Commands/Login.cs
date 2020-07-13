@@ -10,7 +10,7 @@ namespace Northwind.Application.Account.Commands
   using System.Security.Claims;
   using System.Security.Principal;
   using AutoMapper;
-  using Domain;
+  using Common.Interfaces;
   using Microsoft.AspNet.Identity;
   using Microsoft.AspNetCore.Authentication.Cookies;
 

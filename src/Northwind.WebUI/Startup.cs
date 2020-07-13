@@ -5,14 +5,23 @@
 
 namespace Northwind.WebUI
 {
-  using Infrastructure;
+  using Application;
+  using Application.Common.Interfaces;
+  using Common;
+  using Filters;
+  using FluentValidation.AspNetCore;
+  using Microsoft.AspNet.Identity;
+  using Microsoft.AspNetCore.Authentication.Cookies;
+  using Microsoft.AspNetCore.Authorization;
   using Microsoft.AspNetCore.Builder;
   using Microsoft.AspNetCore.Hosting;
+  using Microsoft.AspNetCore.Mvc.Authorization;
   using Microsoft.Extensions.Configuration;
   using Microsoft.Extensions.DependencyInjection;
-  using Microsoft.Extensions.Hosting;
-  using Microsoft.Extensions.Logging;
-  using NLog.Web;
+  using Infrastructure;
+  using Northwind.Common;
+  using Persistence;
+  using Services;
 
   public class Startup
   {
@@ -27,14 +36,38 @@ namespace Northwind.WebUI
 
     public void ConfigureServices(IServiceCollection services)
     {
-      services.AddServices();
-      services.AddMyAuthentication();
-      services.AddDbContext(Configuration);
+      services.AddInfrastructure(Configuration, Environment);
+      services.AddPersistence(Configuration);
       services.AddApplication();
-      services.AddMyMvc(Configuration.GetRazorSettings());
+      services.AddScoped<ICurrentUserService, CurrentUserService>();
       services.AddHttpContextAccessor();
-      services.AddMyRouting();
-      services.AddMyControllers();
+      services.AddControllersWithViews(options => options.Filters.Add(typeof(DbContextTransactionFilter)))
+        .AddNewtonsoftJson()
+        .AddFeatureFolders()
+        .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<INorthwindDbContext>());
+
+      services.AddScoped<ICurrentUserService, CurrentUserService>();
+
+      // services.AddDbContext(Configuration);
+      
+      var builder = services.AddMvc(o =>
+      {
+        var policy = new AuthorizationPolicyBuilder()
+          .RequireAuthenticatedUser()
+          .Build();
+        o.Filters.Add(new AuthorizeFilter(policy));
+      });
+
+      var settings = Configuration.GetSection(nameof(RazorSettings)).Get<RazorSettings>();
+      var isAllowed = (settings ?? new RazorSettings()).AllowRuntimeCompilation;
+      
+      if (isAllowed)
+      {
+        builder.AddRazorRuntimeCompilation();
+      }
+      
+      services.AddRouting(option => option.LowercaseUrls = true);
+
     }
 
     public void Configure(IApplicationBuilder app)
@@ -44,7 +77,7 @@ namespace Northwind.WebUI
       app.UseTurboLinks();
       app.UseRouting();
       app.UseAuthentication();
-      app.UseEndpoints();
+      app.UseEndpoints(endpoints => endpoints.MapDefaultControllerRoute());
     }
     
   }

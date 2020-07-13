@@ -5,8 +5,8 @@ namespace Northwind.Application.Products.Queries
   using System.Threading.Tasks;
   using AutoMapper;
   using AutoMapper.QueryableExtensions;
+  using Common.Interfaces;
   using Common.Mappings;
-  using Domain;
   using Domain.Entities;
   using MediatR;
   using Microsoft.EntityFrameworkCore;

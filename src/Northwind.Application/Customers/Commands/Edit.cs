@@ -3,8 +3,8 @@ namespace Northwind.Application.Customers.Commands
   using System.Threading;
   using System.Threading.Tasks;
   using AutoMapper;
+  using Common.Interfaces;
   using Common.Mappings;
-  using Domain;
   using Domain.Entities;
   using FluentValidation;
   using FluentValidation.Validators;

@@ -5,8 +5,8 @@ namespace Northwind.Application.Categories.Queries
   using Domain.Entities;
   using System.Threading;
   using System.Threading.Tasks;
+  using Common.Interfaces;
   using Common.Mappings;
-  using Domain;
   using FluentValidation;
   using MediatR;
 

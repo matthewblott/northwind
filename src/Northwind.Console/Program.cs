@@ -6,7 +6,7 @@
   {
     private static void Main(string[] args)
     {
-      Migration.Migrate(); 
+      Migration.Migrate();
     }
     
   }

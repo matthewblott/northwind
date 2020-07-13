@@ -2,7 +2,7 @@ namespace Northwind.Application.Categories.Commands
 {
   using System.Threading;
   using System.Threading.Tasks;
-  using Domain;
+  using Common.Interfaces;
   using FluentValidation;
   using MediatR;
 

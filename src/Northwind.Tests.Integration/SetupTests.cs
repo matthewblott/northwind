@@ -16,6 +16,7 @@ namespace Northwind.Tests.Integration
   using Microsoft.Extensions.DependencyInjection.Extensions;
   using Microsoft.Extensions.Hosting;
   using NUnit.Framework;
+  using Persistence;
   using Shouldly;
   using WebUI;
 
@@ -82,6 +83,8 @@ namespace Northwind.Tests.Integration
               services.Remove(descriptor);
             }
 
+            // services.ReplaceTransient<IDateTime>(_ => MachineDateTimeMock.Instance);
+            
             services.AddDbContext<NorthwindDbContext>(options =>
               options.UseSqlite(Utilities.GetTestDatabaseConnectionString())
                 .EnableSensitiveDataLogging()
