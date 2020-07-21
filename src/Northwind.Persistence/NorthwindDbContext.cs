@@ -30,7 +30,7 @@ namespace Northwind.Persistence
     public DbSet<Territory> Territories { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<UserRole> UserGroups { get; set; }
-    private Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction _currentTransaction;
+    private Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction? _currentTransaction;
     private readonly ICurrentUserService _currentUserService;
     private readonly IDateTime _dateTime;
 
@@ -59,8 +59,21 @@ namespace Northwind.Persistence
           Assembly.GetExecutingAssembly().GetTypes().Where(t => t.IsSubclassOf(evt)).ToList();
 
         var failures = validatorTypes
-          .Select(vt0 => ((IValidator) 
-            Activator.CreateInstance(vt0))?.Validate(entry.Entity) ?? new ValidationResult())
+          .Select(vt0 =>
+          {
+            var instance = Activator.CreateInstance(vt0);
+
+            if (instance == null)
+            {
+              return new ValidationResult();
+            }
+            
+            var validator = (IValidator) instance;
+            var  validationResult = validator.Validate(entry.Entity);
+
+            return validationResult;
+
+          })
           .SelectMany(result => result.Errors)
           .Where(f => f != null)
           .ToList();
@@ -142,7 +155,10 @@ namespace Northwind.Persistence
       {
         await SaveChangesAsync().ConfigureAwait(false);
 
-        if (_currentTransaction != null) await _currentTransaction?.CommitAsync();
+        if (_currentTransaction != null)
+        {
+          await _currentTransaction!.CommitAsync();
+        }
       }
       catch
       {

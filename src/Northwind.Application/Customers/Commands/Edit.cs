@@ -60,7 +60,7 @@ namespace Northwind.Application.Customers.Commands
       public string PostalCode { get; set; }
       public string Country { get; set; }
       public string Phone { get; set; }
-      public string Fax { get; set; }
+      public string? Fax { get; set; }
       
       public void Mapping(Profile profile)
       {
@@ -107,8 +107,12 @@ namespace Northwind.Application.Customers.Commands
         //   .WithMessage("Customers in QLD require at least one QLD landline.");
       }
 
-      private static bool HaveQueenslandLandLine(Command model, string phoneValue, PropertyValidatorContext ctx) 
-        => model.Phone.StartsWith("07") || model.Fax.StartsWith("07");
+      private static bool HaveQueenslandLandLine(Command model, string phoneValue, PropertyValidatorContext ctx)
+      {
+        var modelFaxStartsWith = model.Fax != null && model.Fax.StartsWith("");
+        
+        return model.Phone.StartsWith("07") || modelFaxStartsWith;
+      }
     }
     
     // Handler

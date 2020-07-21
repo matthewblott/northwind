@@ -19,7 +19,7 @@
     public string PostalCode { get; set; }
     public string Country { get; set; }
     public string Phone { get; set; }
-    public string Fax { get; set; }
+    public string? Fax { get; set; }
 
     // Validator
     public class Validator : AbstractValidator<Customer>
@@ -54,8 +54,12 @@
         
       }
 
-      private static bool HaveQueenslandLandLine(Customer model, string phoneValue, PropertyValidatorContext ctx) 
-        => model.Phone.StartsWith("07") || model.Fax.StartsWith("07");
+      private static bool HaveQueenslandLandLine(Customer model, string phoneValue, PropertyValidatorContext ctx)
+      {
+        var modelFaxStartsWith = model.Fax != null && model.Fax.StartsWith("");
+        
+        return model.Phone.StartsWith("07") || modelFaxStartsWith;
+      }
       
     }
     

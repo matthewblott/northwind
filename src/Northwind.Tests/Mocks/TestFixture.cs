@@ -13,6 +13,7 @@ namespace Northwind.Tests.Mocks
   using Microsoft.Extensions.Configuration;
   using Microsoft.Extensions.DependencyInjection;
   using Microsoft.Extensions.Logging;
+  using Microsoft.VisualStudio.TestPlatform.CoreUtilities.Helpers;
   using Persistence;
   using WebUI;
 
@@ -35,9 +36,8 @@ namespace Northwind.Tests.Mocks
       var config = new ConfigurationBuilder()
         .AddInMemoryCollection(dict)
         .Build();
-
-      IWebHostEnvironment environment = null;
       
+      var environment = A.Fake<IWebHostEnvironment>();
       var startup = new Startup(config, environment);
       var services = new ServiceCollection();
       

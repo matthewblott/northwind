@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace Northwind.Domain.Entities
+﻿namespace Northwind.Domain.Entities
 {
+  using System.Collections.Generic;
+
   public class Supplier
   {
     public Supplier()
