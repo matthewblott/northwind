@@ -14,7 +14,8 @@ namespace Northwind.Database
       var thisAssembly = Assembly.GetExecutingAssembly();
       var entryAssembly = Assembly.GetEntryAssembly();
       var assemblyName = entryAssembly?.GetName().Name?.ToLower();
-      var info = Directory.GetParent(entryAssembly?.Location);
+
+      DirectoryInfo? info = Directory.GetParent(entryAssembly?.Location);
 
       while (info?.Name.ToLower() != assemblyName)
       {

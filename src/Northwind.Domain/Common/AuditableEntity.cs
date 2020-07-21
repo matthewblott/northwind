@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Northwind.Domain.Common
+﻿namespace Northwind.Domain.Common
 {
+  using System;
+
   public class AuditableEntity
   {
     public string CreatedBy { get; set; }

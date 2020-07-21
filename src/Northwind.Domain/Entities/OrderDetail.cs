@@ -1,7 +1,7 @@
-﻿using Northwind.Domain.Common;
-
-namespace Northwind.Domain.Entities
+﻿namespace Northwind.Domain.Entities
 {
+  using Common;
+
   public class OrderDetail : AuditableEntity
   {
     public Order Order { get; set; }

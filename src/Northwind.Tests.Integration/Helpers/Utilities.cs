@@ -1,5 +1,6 @@
 namespace Northwind.Tests.Integration.Helpers
 {
+  using System;
   using System.IO;
   using System.Reflection;
 
@@ -9,7 +10,8 @@ namespace Northwind.Tests.Integration.Helpers
     {
       var assembly = Assembly.GetExecutingAssembly();
       var assemblyName = assembly.GetName().Name?.ToLower();
-      var info = Directory.GetParent(assembly.Location);
+      
+      DirectoryInfo? info = Directory.GetParent(assembly.Location);
       
       while (info?.Name.ToLower() != assemblyName && info?.Name != Path.DirectorySeparatorChar.ToString())
       {
@@ -21,7 +23,12 @@ namespace Northwind.Tests.Integration.Helpers
         throw new DirectoryNotFoundException();
       }
 
-      return info?.FullName;
+      if (info == null)
+      {
+        throw new NullReferenceException();
+      }
+      
+      return info.FullName;
 
     }
 

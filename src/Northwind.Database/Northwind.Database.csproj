@@ -1,8 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="dbup" Version="4.4.0" />
     <PackageReference Include="dbup-sqlite" Version="4.4.0" />

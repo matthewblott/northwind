@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using Northwind.Domain.Common;
-
-namespace Northwind.Domain.Entities
+﻿namespace Northwind.Domain.Entities
 {
+  using System.Collections.Generic;
+
   public class Product //: AuditableEntity
   {
     public ICollection<OrderDetail> OrderDetails { get; private set; }
