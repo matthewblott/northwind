@@ -13,4 +13,8 @@
     <ProjectReference Include="..\Northwind.Common\Northwind.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="CsvHelper" Version="15.0.5" />
+  </ItemGroup>
+
 </Project>

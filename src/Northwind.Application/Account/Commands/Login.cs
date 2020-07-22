@@ -42,6 +42,8 @@ namespace Northwind.Application.Account.Commands
 
       public Task<IPrincipal> Handle(Command command, CancellationToken cancellationToken)
       {
+        // todo: this should be executed in infrastructure and called here using an interface 
+        
         var any = _db.Users.Any(u => u.Username == command.Username);
         
         if (!any)

@@ -26,7 +26,7 @@ namespace Northwind.WebUI
       }
       catch (Exception ex)
       {
-        logger.Fatal(ex, "Stopped program because of exception");
+        logger.Fatal(ex, ex.Message);
         
         return 1;
       }

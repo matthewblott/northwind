@@ -2,6 +2,7 @@ namespace Northwind.Application
 {
   using System.Reflection;
   using AutoMapper;
+  using Common.Behaviours;
   using MediatR;
   using Microsoft.Extensions.DependencyInjection;
   using WebUI.Behaviours;

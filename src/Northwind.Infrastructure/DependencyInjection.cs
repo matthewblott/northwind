@@ -1,6 +1,8 @@
 namespace Northwind.Infrastructure
 {
+  using Application.Common.Interfaces;
   using Common;
+  using Files;
   using Microsoft.AspNet.Identity;
   using Microsoft.AspNetCore.Authentication.Cookies;
   using Microsoft.AspNetCore.Hosting;
@@ -14,6 +16,7 @@ namespace Northwind.Infrastructure
     {
       services.AddScoped<IDateTime, MachineDateTime>();
       services.AddScoped<IPasswordHasher, PasswordHasher>();
+      services.AddScoped<ICsvFileReader, CsvFileReader>();
       services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 
       return services;
