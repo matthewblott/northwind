@@ -1,0 +1,50 @@
+@model IEnumerable<Northwind.Application.Products.Commands.Import.Model>
+
+<form method="post" asp-action="Import" enctype="multipart/form-data">
+  <input name="file" type="file" />
+  <button>Upload</button>
+</form>
+
+@if (Model != null)
+{
+  <p>
+    The following were imported successfully. 
+  </p>
+
+
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th>
+        Id
+      </th>
+      <th>
+        Product Name
+      </th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+  
+    @foreach (var item in Model)
+    {
+      <tr>
+        <td>
+          @item.ProductId
+        </td>
+        <td>
+          @item.ProductName
+        </td>
+        <td>
+          <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
+          <button class="pseudo" form="delete-@item.ProductId">Delete</button>
+        
+        </td>
+      </tr>
+    }
+    </tbody>
+  </table>
+  
+}
+

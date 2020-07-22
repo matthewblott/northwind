@@ -1,4 +1,4 @@
-namespace Northwind.WebUI.Behaviours
+namespace Northwind.Application.Common.Behaviours
 {
   using System.Collections.Generic;
   using System.Linq;

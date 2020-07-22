@@ -1,10 +1,12 @@
 namespace Northwind.WebUI.Features.Products
 {
+  using System;
   using System.Threading.Tasks;
   using Application.Products.Commands;
   using MediatR;
   using Microsoft.AspNetCore.Mvc;
   using Application.Products.Queries;
+  using Index = Application.Products.Queries.Index;
 
   public class ProductsController : Controller
   {
@@ -14,7 +16,7 @@ namespace Northwind.WebUI.Features.Products
 
     public async Task<IActionResult> Index() => View(await _mediator.Send(new Index.Query()));
     public async Task<IActionResult> Details(Details.Query query) => View(await _mediator.Send(query));
-
+    
     public IActionResult New() => View();
     
     [HttpPost]
@@ -41,6 +43,12 @@ namespace Northwind.WebUI.Features.Products
       return NoContent();
     }
 
+    public IActionResult Import() => View();
+
+    [HttpPost]
+    public async Task<IActionResult> Import(Import.Command command) 
+      => View(await _mediator.Send(command));
+    
   }
   
 }
