@@ -3,15 +3,13 @@ namespace Northwind.WebUI.Filters
   using System;
   using System.Threading.Tasks;
   using Application.Common.Interfaces;
-  using Domain;
   using Microsoft.AspNetCore.Mvc.Filters;
-  using Persistence;
 
   public class DbContextTransactionFilter : IAsyncActionFilter
   {
-    private readonly IDbContextTransaction _db;
+    private readonly INorthwindDbContext _db;
 
-    public DbContextTransactionFilter(IDbContextTransaction db)
+    public DbContextTransactionFilter(INorthwindDbContext db)
     {
       _db = db;
     }
@@ -20,22 +18,22 @@ namespace Northwind.WebUI.Filters
     {
       try
       {
-        await _db.BeginTransactionAsync();
+        await _db.BeginAsync();
 
         var actionExecuted = await next();
         
         if (actionExecuted.Exception != null && !actionExecuted.ExceptionHandled)
         {
-          _db.RollbackTransaction();
+          await _db.RollbackAsync();
         }
         else
         {
-          await _db.CommitTransactionAsync();
+          await _db.CommitAsync();
         }
       }
       catch (Exception)
       {
-        _db.RollbackTransaction();
+        await _db.RollbackAsync();
         throw;
       }
     }

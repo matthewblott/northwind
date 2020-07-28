@@ -40,7 +40,7 @@ namespace Northwind.WebUI
     public static IHostBuilder CreateHostBuilder(string[] args) =>
       Host.CreateDefaultBuilder(args)
         .ConfigureWebHostDefaults(builder => builder.UseStartup<Startup>())
-        .ConfigureLogging(logging => logging.ClearProviders())
+        //.ConfigureLogging(logging => logging.ClearProviders())
         .UseNLog();
 
   }

@@ -11,7 +11,7 @@ namespace Northwind.WebUI.Features.Customers
   public class CustomersController : Controller
   {
     private readonly IMediator _mediator;
-
+  
     public CustomersController(IMediator mediator) => _mediator = mediator;
 
     public async Task<IActionResult> Index()
