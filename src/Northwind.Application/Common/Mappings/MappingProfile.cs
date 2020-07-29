@@ -1,10 +1,10 @@
-﻿using System;
-using System.Linq;
-using System.Reflection;
-using AutoMapper;
-
-namespace Northwind.Application.Common.Mappings
+﻿namespace Northwind.Application.Common.Mappings
 {
+  using System;
+  using System.Linq;
+  using System.Reflection;
+  using AutoMapper;
+  
   public class MappingProfile : Profile
   {
     public MappingProfile()

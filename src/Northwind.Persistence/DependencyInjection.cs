@@ -1,8 +1,8 @@
 namespace Northwind.Persistence
 {
   using Application.Common.Interfaces;
-  using Domain;
   using Microsoft.EntityFrameworkCore;
+  using Microsoft.EntityFrameworkCore.Storage;
   using Microsoft.Extensions.Configuration;
   using Microsoft.Extensions.DependencyInjection;
 

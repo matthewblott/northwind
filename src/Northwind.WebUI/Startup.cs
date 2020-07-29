@@ -10,8 +10,6 @@ namespace Northwind.WebUI
   using Common;
   using Filters;
   using FluentValidation.AspNetCore;
-  using Microsoft.AspNet.Identity;
-  using Microsoft.AspNetCore.Authentication.Cookies;
   using Microsoft.AspNetCore.Authorization;
   using Microsoft.AspNetCore.Builder;
   using Microsoft.AspNetCore.Hosting;
@@ -48,8 +46,6 @@ namespace Northwind.WebUI
 
       services.AddScoped<ICurrentUserService, CurrentUserService>();
 
-      // services.AddDbContext(Configuration);
-      
       var builder = services.AddMvc(o =>
       {
         var policy = new AuthorizationPolicyBuilder()

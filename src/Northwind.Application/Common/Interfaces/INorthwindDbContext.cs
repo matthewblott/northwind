@@ -4,8 +4,9 @@
   using System.Threading.Tasks;
   using Domain.Entities;
   using Microsoft.EntityFrameworkCore;
+  using Microsoft.EntityFrameworkCore.Storage;
 
-  public interface INorthwindDbContext
+  public interface INorthwindDbContext : IDbContextTransaction
   {
     DbSet<Category> Categories { get; set; }
     DbSet<Customer> Customers { get; set; }
@@ -21,6 +22,8 @@
     DbSet<Territory> Territories { get; set; }
     DbSet<User> Users { get; set; }
     DbSet<UserRole> UserGroups { get; set; }
+
+    Task BeginAsync();
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 
