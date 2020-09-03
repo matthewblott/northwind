@@ -3,8 +3,10 @@ namespace Northwind.Tests.Integration
   using System.Net;
   using System.Net.Http;
   using System.Threading.Tasks;
+  using Helpers;
   using NUnit.Framework;
   using Shouldly;
+  using WebUI;
 
   [TestFixture]
   public class HomeTests
@@ -21,7 +23,7 @@ namespace Northwind.Tests.Integration
     }
     
     [Test]
-    public async Task Test1()
+    public async Task Should_navigate_home_successfully()
     {
       const string url = "/";
       

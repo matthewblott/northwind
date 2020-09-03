@@ -10,12 +10,13 @@ namespace Northwind.Tests.Integration
 
   public class TestWebApplicationFactory : WebApplicationFactory<Startup>
   {
-    protected override void ConfigureWebHost(IWebHostBuilder builder)
+    protected void ConfigureWebHost2(IWebHostBuilder builder)
     {
-      WithWebHostBuilder(hostBuilder =>
+      var factory = WithWebHostBuilder(hostBuilder =>
       {
-        hostBuilder.ConfigureTestServices(services =>
+        hostBuilder.ConfigureServices(services =>
         {
+          const bool b = false;
           services.AddMvc(options =>
           {
             options.Filters.Add(new AllowAnonymousFilter());
@@ -23,9 +24,7 @@ namespace Northwind.Tests.Integration
           })
           .AddApplicationPart(typeof(Startup).Assembly);
         });
-
       });
-
     }
     
   }

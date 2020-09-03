@@ -5,21 +5,24 @@ namespace Northwind.Application.Suppliers.Queries
   using System.Threading.Tasks;
   using AutoMapper;
   using AutoMapper.QueryableExtensions;
+  using Common;
   using Common.Interfaces;
   using Common.Mappings;
   using Domain.Entities;
   using MediatR;
   using Microsoft.EntityFrameworkCore;
+  using X.PagedList;
 
   public class Index
   {
     public class Query : IRequest<Model>
     {
+      public int Page { get; set; } = 1;
     }
 
     public class Model
     {
-      public IList<Item> Items { get; set; }
+      public IPagedList<Item> Items { get; set; }
       
       public bool CreateEnabled { get; set; }
       
@@ -35,8 +38,8 @@ namespace Northwind.Application.Suppliers.Queries
         public string PostalCode { get; set; }
         public string Country { get; set; }
         public string Phone { get; set; }
-        public string Fax { get; set; }
-        public string HomePage { get; set; }
+        public string? Fax { get; set; }
+        public string? HomePage { get; set; }
 
         public void Mapping(Profile profile)
         {
@@ -64,12 +67,11 @@ namespace Northwind.Application.Suppliers.Queries
       {
         var items = await _db.Suppliers
           .ProjectTo<Model.Item>(_mapper.ConfigurationProvider)
-          .ToListAsync(token);
-    
+          .ToPagedListAsync(query.Page, PageConstants.PageSize, token);
+        
         var model = new Model
         {
           Items = items,
-          // CreateEnabled = true // TODO: Set based on user permissions.
         };
     
         return model;

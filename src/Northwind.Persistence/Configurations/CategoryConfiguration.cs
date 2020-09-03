@@ -8,14 +8,14 @@
   {
     public void Configure(EntityTypeBuilder<Category> builder)
     {
-      builder.Property(e => e.CategoryId).HasColumnName("CategoryId");
+      builder.Property(e => e.CategoryId);
       
       builder.Property(e => e.CategoryName)
         .IsRequired()
         .HasMaxLength(15);
-      
-      builder.Property(e => e.Description).HasColumnType("ntext");
-      
+
+      builder.Property(e => e.Description);
+
     }
     
   }

@@ -9,14 +9,8 @@
     public void Configure(EntityTypeBuilder<Region> builder)
     {
       builder.HasKey(e => e.RegionId);
-
-      builder.Property(e => e.RegionId)
-        .HasColumnName("RegionID")
-        .ValueGeneratedNever();
-
-      builder.Property(e => e.RegionDescription)
-        .IsRequired()
-        .HasMaxLength(50);
+      builder.Property(e => e.RegionId).ValueGeneratedNever();
+      builder.Property(e => e.RegionDescription).IsRequired().HasMaxLength(50);
     }
   }
 }

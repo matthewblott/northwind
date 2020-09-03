@@ -1,3 +1,4 @@
+@using Northwind.Domain.Types
 @model Northwind.Application.Employees.Queries.Details.Model
 
 <fieldset>
@@ -17,6 +18,12 @@
     <x-field>
       <label asp-for="LastName"></label>
       <input asp-for="LastName">
+    </x-field>
+    <x-field>
+      <label asp-for="Gender"></label>
+      <select asp-for="Gender" class="form-control" asp-items="Html.GetEnumSelectList<Gender>()">
+        <option disabled selected value="">-- Select --</option>
+      </select>
     </x-field>
     <x-field>
       <label asp-for="BirthDate"></label>

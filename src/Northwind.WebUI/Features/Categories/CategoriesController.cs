@@ -12,7 +12,7 @@ namespace Northwind.WebUI.Features.Categories
 
     public CategoriesController(IMediator mediator) => _mediator = mediator;
 
-    public async Task<IActionResult> Index() => View(await _mediator.Send(new Index.Query()));
+    public async Task<IActionResult> Index(Index.Query query) => View(await _mediator.Send(query));
     
     public async Task<IActionResult> Details(Details.Query query) => View(await _mediator.Send(query));
 

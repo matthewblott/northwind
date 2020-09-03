@@ -1,25 +1,26 @@
 namespace Northwind.Application.Products.Queries
 {
-  using System.Collections.Generic;
   using System.Threading;
   using System.Threading.Tasks;
   using AutoMapper;
   using AutoMapper.QueryableExtensions;
+  using Common;
   using Common.Interfaces;
   using Common.Mappings;
   using Domain.Entities;
   using MediatR;
-  using Microsoft.EntityFrameworkCore;
+  using X.PagedList;
 
   public class Index
   {
     public class Query : IRequest<Model>
     {
+      public int Page { get; set; } = 1;
     }
 
     public class Model
     {
-      public IList<Item> Items { get; set; }
+      public IPagedList<Item> Items { get; set; }
       
       public bool CreateEnabled { get; set; }
       
@@ -63,8 +64,8 @@ namespace Northwind.Application.Products.Queries
       {
         var items = await _db.Products
           .ProjectTo<Model.Item>(_mapper.ConfigurationProvider)
-          .ToListAsync(token);
-    
+          .ToPagedListAsync(query.Page, PageConstants.PageSize, token);
+
         var model = new Model
         {
           Items = items,

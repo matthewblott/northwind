@@ -1,3 +1,5 @@
+@using X.PagedList.Mvc.Core.Common
+@using X.PagedList.Mvc.Core
 @model Northwind.Application.Customers.Queries.Index.Model
 
 @{
@@ -32,7 +34,7 @@
       </td>
       <td>
         <a asp-action="Edit" asp-route-id="@item.Id">Details</a> |
-          <button class="pseudo" form="delete-@item.Id">Delete</button>
+        <button class="pseudo" form="delete-@item.Id">Delete</button>
         
         <form id="delete-@item.Id" method="post" asp-action="Delete">
           <input type="hidden" name="Id" value="@item.Id">
@@ -43,3 +45,12 @@
   }
   </tbody>
 </table>
+@Html.PagedListPager(Model.Items, page => Url.Action("Index", new { page }), 
+  new PagedListRenderOptions
+  {
+    LinkToFirstPageFormat = "<< First", 
+    LinkToPreviousPageFormat = "< Previous", 
+    LinkToNextPageFormat = "Next >", 
+    LinkToLastPageFormat = "Last >>",
+    MaximumPageNumbersToDisplay = 10,
+  })

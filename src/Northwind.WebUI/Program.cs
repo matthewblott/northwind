@@ -11,14 +11,16 @@ namespace Northwind.WebUI
   {
     public static int Main(string[] args)
     {
-      var logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
+      var logger = NLogBuilder
+        .ConfigureNLog("nlog.config")
+        .GetCurrentClassLogger();
       
       try
       {
         logger.Debug("init main");
         
         var host = CreateHostBuilder(args)
-          .Build();;
+          .Build();
         
         host.Run();
         
@@ -40,7 +42,7 @@ namespace Northwind.WebUI
     public static IHostBuilder CreateHostBuilder(string[] args) =>
       Host.CreateDefaultBuilder(args)
         .ConfigureWebHostDefaults(builder => builder.UseStartup<Startup>())
-        //.ConfigureLogging(logging => logging.ClearProviders())
+        .ConfigureLogging(logging => logging.ClearProviders())
         .UseNLog();
 
   }

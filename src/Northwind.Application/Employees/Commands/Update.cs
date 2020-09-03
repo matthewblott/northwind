@@ -10,6 +10,7 @@ namespace Northwind.Application.Employees.Commands
 
   public class Update
   {
+    // Command
     public class Command : IRequest<Unit>
     {
       [IgnoreMap]
@@ -31,13 +32,28 @@ namespace Northwind.Application.Employees.Commands
       public byte[] Photo { get; set; }
       public int? ManagerId { get; set; }
     }
-
+    
     // Validator
     public class Validator : AbstractValidator<Command>
     {
       public Validator()
       {
-        // RuleFor(v => v.Id) ...
+        RuleFor(v => v.Id).NotEmpty();
+        RuleFor(e => e.FirstName).Length(10).NotEmpty();
+        RuleFor(e => e.LastName).Length(20).NotEmpty();
+        RuleFor(e => e.Address).Length(60);
+        RuleFor(e => e.BirthDate);
+        RuleFor(e => e.City).Length(15);
+        RuleFor(e => e.Country).Length(15);
+        RuleFor(e => e.Extension).Length(4);
+        RuleFor(e => e.HireDate);
+        RuleFor(e => e.HomePhone).Length(24);
+        RuleFor(e => e.Notes);
+        RuleFor(e => e.Photo);
+        RuleFor(e => e.PostalCode).Length(10);
+        RuleFor(e => e.Region).Length(15);
+        RuleFor(e => e.Position).Length(30);
+        RuleFor(e => e.Title).Length(25);
       }
     }
     

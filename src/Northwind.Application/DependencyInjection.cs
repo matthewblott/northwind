@@ -5,6 +5,7 @@ namespace Northwind.Application
   using Common.Behaviours;
   using MediatR;
   using Microsoft.Extensions.DependencyInjection;
+  using WebUI.Behaviours;
 
   public static class DependencyInjection
   {

@@ -38,6 +38,7 @@ namespace Northwind.Database
         DeployChanges.To
           .SQLiteDatabase(conn.ConnectionString)
           .WithScriptsEmbeddedInAssembly(thisAssembly)
+          //.WithScriptsFromFileSystem("path")
           .LogToConsole()
           .LogScriptOutput()
           .WithTransaction()

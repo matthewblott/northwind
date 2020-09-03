@@ -9,6 +9,7 @@ namespace Northwind.Application.Employees.Queries
   using System.Threading.Tasks;
   using Common.Interfaces;
   using Common.Mappings;
+  using Domain.Types;
   using FluentValidation;
   using MediatR;
 
@@ -33,6 +34,7 @@ namespace Northwind.Application.Employees.Queries
       public string FirstName { get; set; }
       [Required]
       public string LastName { get; set; }
+      public Gender? Gender { get; set; }
       public DateTime? BirthDate { get; set; }
       public string Address { get; set; }
       public string City { get; set; }
@@ -44,7 +46,7 @@ namespace Northwind.Application.Employees.Queries
       public string Extension { get; set; }
       public DateTime? HireDate { get; set; }
       public string Notes { get; set; }
-      public byte[] Photo { get; set; }
+      public byte[]? Photo { get; set; }
       public int? ManagerId { get; set; }
 
       public virtual IList<ModelTerritory> Territories { get; set; }

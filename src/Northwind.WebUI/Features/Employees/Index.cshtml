@@ -1,3 +1,5 @@
+@using X.PagedList.Mvc.Core.Common
+@using X.PagedList.Mvc.Core
 @model Northwind.Application.Employees.Queries.Index.Model
 
 @{
@@ -48,3 +50,12 @@
   }
   </tbody>
 </table>
+@Html.PagedListPager(Model.Items, page => Url.Action("Index", new { page }), 
+  new PagedListRenderOptions
+  {
+    LinkToFirstPageFormat = "<< First", 
+    LinkToPreviousPageFormat = "< Previous", 
+    LinkToNextPageFormat = "Next >", 
+    LinkToLastPageFormat = "Last >>",
+    MaximumPageNumbersToDisplay = 10,
+  })

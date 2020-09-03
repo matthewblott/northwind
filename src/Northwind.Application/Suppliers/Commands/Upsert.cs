@@ -5,6 +5,7 @@ namespace Northwind.Application.Suppliers.Commands
   using System.Threading.Tasks;
   using AutoMapper;
   using Common.Interfaces;
+  using Common.Mappings;
   using Domain.Entities;
   using FluentValidation;
   using MediatR;
@@ -24,7 +25,29 @@ namespace Northwind.Application.Suppliers.Commands
       }
     }
     
-    public class Command : IRequest<int>
+    public class QueryHandler : IRequestHandler<Query, Command>
+    {
+      private readonly INorthwindDbContext _db;
+      private readonly IMapper _mapper;
+
+      public QueryHandler(INorthwindDbContext db, IMapper mapper)
+      {
+        _db = db;
+        _mapper = mapper;
+      }
+
+      public async Task<Command> Handle(Query query, CancellationToken cancellationToken)
+      {
+        var id = query.Id;
+        var entity = await _db.Suppliers.FindAsync(id);
+
+        return _mapper.Map<Command>(entity);
+        
+      }
+      
+    }
+    
+    public class Command : IRequest<int>, IMapFrom<Supplier>
     {
       [IgnoreMap] public int? Id { get; set; }
       public string CompanyName { get; set; }
@@ -39,6 +62,12 @@ namespace Northwind.Application.Suppliers.Commands
       public string Fax { get; set; }
       public string HomePage { get; set; }
 
+      public void Mapping(Profile profile)
+      {
+        profile.CreateMap<Supplier, Command>()
+          .ForMember(d => d.Id, opt => opt.MapFrom(s => s.SupplierId));
+      }
+      
     }
 
     public class CommandValidator : AbstractValidator<Command>
@@ -52,12 +81,14 @@ namespace Northwind.Application.Suppliers.Commands
       }
     }
 
-    public class Handler : IRequestHandler<Command, int>
+    //         public class CommandHandler : AsyncRequestHandler<Command>
+    
+    public class CommandHandler : IRequestHandler<Command, int>
     {
       private readonly INorthwindDbContext _db;
       private readonly IMapper _mapper;
 
-      public Handler(INorthwindDbContext db, IMapper mapper)
+      public CommandHandler(INorthwindDbContext db, IMapper mapper)
       {
         _db = db;
         _mapper = mapper;

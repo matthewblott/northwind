@@ -1,21 +1,31 @@
 namespace Northwind.WebUI.Features.Customers
 {
+  using System;
   using Microsoft.AspNetCore.Mvc;
   using System.Threading.Tasks;
   using Application.Customers.Commands;
   using Application.Customers.Queries;
   using MediatR;
-  using Microsoft.AspNetCore.Authorization;
   using Shared;
+  using Index = Application.Customers.Queries.Index;
 
   public class CustomersController : Controller
   {
     private readonly IMediator _mediator;
-  
+
     public CustomersController(IMediator mediator) => _mediator = mediator;
 
-    public async Task<IActionResult> Index()
-      => View(await _mediator.Send(new Index.Query())); // .WithMessage("Below is a list of active customers.");
+    public IActionResult PostTest() => View(new PostTestViewModel());
+
+    [HttpPost]
+    public IActionResult PostTest(PostTestViewModel viewModel)
+    {
+      return View(new PostTestViewModel());
+    }
+
+    public async Task<IActionResult> IdAvailable(IdAvailable.Query query) => Json(await _mediator.Send(query));
+
+    public async Task<IActionResult> Index(Index.Query query) => View(await _mediator.Send(query));
 
     public IActionResult Create() => View();
 

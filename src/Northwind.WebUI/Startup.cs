@@ -7,6 +7,7 @@ namespace Northwind.WebUI
 {
   using Application;
   using Application.Common.Interfaces;
+  using Application.Common.Validators;
   using Common;
   using Filters;
   using FluentValidation.AspNetCore;
@@ -17,9 +18,9 @@ namespace Northwind.WebUI
   using Microsoft.Extensions.Configuration;
   using Microsoft.Extensions.DependencyInjection;
   using Infrastructure;
-  using Northwind.Common;
   using Persistence;
   using Services;
+  using Validators;
 
   public class Startup
   {
@@ -31,20 +32,28 @@ namespace Northwind.WebUI
 
     public IConfiguration Configuration { get; }
     public IWebHostEnvironment Environment { get; }
-
+   
     public void ConfigureServices(IServiceCollection services)
     {
+      var connectionString = Configuration.GetConnectionString("NorthwindDatabase");
+      
       services.AddInfrastructure(Configuration, Environment);
-      services.AddPersistence(Configuration);
+      services.AddPersistence(connectionString);
       services.AddApplication();
-      services.AddScoped<ICurrentUserService, CurrentUserService>();
+      services.AddUrlHelper();
+      services.AddCurrentUserService();
       services.AddHttpContextAccessor();
       services.AddControllersWithViews(options => options.Filters.Add(typeof(DbContextTransactionFilter)))
         .AddNewtonsoftJson()
         .AddFeatureFolders()
-        .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<INorthwindDbContext>());
-
-      services.AddScoped<ICurrentUserService, CurrentUserService>();
+        .AddFluentValidation(fv =>
+        {
+          fv.RegisterValidatorsFromAssemblyContaining<INorthwindDbContext>();
+          fv.ConfigureClientsideValidation(clientSideValidation =>
+          {
+            clientSideValidation.Add(typeof(RemoteValidator), (context, rule, validator) => new RemoteClientValidator(rule, validator));
+          });
+        });
 
       var builder = services.AddMvc(o =>
       {
