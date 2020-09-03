@@ -21,6 +21,7 @@ namespace Northwind.Application.Categories.Queries
     {
       public Validator()
       {
+        RuleFor(q => q.Id).NotEmpty();
       }
     }
 

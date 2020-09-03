@@ -1,5 +1,6 @@
+@using X.PagedList.Mvc.Core; 
+@using X.PagedList.Mvc.Core.Common
 @model Northwind.Application.Products.Queries.Index.Model
-
 @{
   ViewData["Title"] = "Products";
 }
@@ -42,3 +43,15 @@
   }
   </tbody>
 </table>
+
+@Html.PagedListPager(Model.Items, page => Url.Action("Index", new { page }), 
+  new PagedListRenderOptions
+  {
+    LinkToFirstPageFormat = "<< First", 
+    LinkToPreviousPageFormat = "< Previous", 
+    LinkToNextPageFormat = "Next >", 
+    LinkToLastPageFormat = "Last >>",
+    MaximumPageNumbersToDisplay = 10,
+    // FunctionToDisplayEachPageNumber = someFunction
+    // DelimiterBetweenPageNumbers = "|"
+  })

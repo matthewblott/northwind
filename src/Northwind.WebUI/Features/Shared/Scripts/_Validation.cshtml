@@ -10,8 +10,31 @@
   document.addEventListener('turbolinks:load', () => {
     
     const service = new aspnetValidation.ValidationService();
-    
+
     service.addMvcProviders();
+    
+    // Add custom provider here ...
+    service.addProvider('simple', function (value, element, parameters) {
+      if (!value) {
+        return true;
+      }
+  
+      let dependentProperty = '#' + parameters['dependentproperty'];
+      let targetvalue = parameters['targetvalue'];
+      
+      let dependentControl = document.querySelector(dependentProperty);
+      let dependentValue = dependentControl.val();
+      
+      // if the condition is true, reuse the existing required field validator functionality
+      if (targetvalue.toUpperCase() === dependentValue.toUpperCase()) {
+          return $.validator.methods.required.call(this, value, element, parameters);
+      }
+
+      targetvalue = (targetvalue == null ? '' : targetvalue).toString();      
+      
+      return true;
+    });
+    
     service.scanMessages();
     service.scanInputs();
     

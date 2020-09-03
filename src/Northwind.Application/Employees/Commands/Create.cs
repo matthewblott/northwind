@@ -29,7 +29,7 @@ namespace Northwind.Application.Employees.Commands
       public string Extension { get; set; }
       public DateTime? HireDate { get; set; }
       public string Notes { get; set; }
-      public byte[] Photo { get; set; }
+      public byte[]? Photo { get; set; }
       public int? ManagerId { get; set; }
     }
 

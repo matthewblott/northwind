@@ -1,6 +1,5 @@
 namespace Northwind.Tests.Mocks
 {
-  using System;
   using System.Linq;
   using System.Threading;
   using System.Threading.Tasks;
@@ -11,7 +10,7 @@ namespace Northwind.Tests.Mocks
   using MockQueryable.FakeItEasy;
   using Persistence;
 
-  public class TestDbContext : INorthwindDbContext
+  public class TestDbContext : INorthwindDbContext, IDbContextTransaction
   {
     public TestDbContext()
     {
@@ -34,59 +33,25 @@ namespace Northwind.Tests.Mocks
     public DbSet<Territory> Territories { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<UserRole> UserGroups { get; set; }
-    public Task BeginAsync()
-    {
-      throw new NotImplementedException();
-    }
-
     public Task<int> SaveChangesAsync(CancellationToken cancellationToken)
     {
       return Task.FromResult(0);
     }
 
-    // public Task BeginTransactionAsync()
-    // {
-    //   return Task.CompletedTask;
-    // }
-    //
-    // public Task CommitTransactionAsync()
-    // {
-    //   return Task.CompletedTask;
-    // }
-    //
-    // public void RollbackTransaction()
-    // {
-    //   // Do nothing
-    // }
-
-    public void Dispose()
-    {
-      
-    }
-
-    public ValueTask DisposeAsync()
-    {
-      throw new NotImplementedException();
-    }
-
-    public void Commit()
-    {
-    }
-
-    public void Rollback()
-    {
-    }
-
-    public Task CommitAsync(CancellationToken cancellationToken = new CancellationToken())
+    public Task BeginTransactionAsync()
     {
       return Task.CompletedTask;
     }
 
-    public Task RollbackAsync(CancellationToken cancellationToken = new CancellationToken())
+    public Task CommitTransactionAsync()
     {
       return Task.CompletedTask;
     }
 
-    public Guid TransactionId => new Guid();
+    public void RollbackTransaction()
+    {
+      // Do nothing
+    }
+    
   }
 }

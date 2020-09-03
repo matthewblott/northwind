@@ -1,6 +1,7 @@
 namespace Northwind.Persistence
 {
   using System;
+  using System.Collections.Generic;
   using System.Data;
   using System.Linq;
   using System.Reflection;
@@ -13,9 +14,9 @@ namespace Northwind.Persistence
   using FluentValidation;
   using FluentValidation.Results;
   using Microsoft.EntityFrameworkCore;
-  using Microsoft.EntityFrameworkCore.Storage;
+  using Microsoft.EntityFrameworkCore.Metadata;
 
-  public class NorthwindDbContext : DbContext, INorthwindDbContext
+  public class NorthwindDbContext : DbContext, INorthwindDbContext, IDbContextTransaction
   {
     public DbSet<Category> Categories { get; set; }
     public DbSet<Customer> Customers { get; set; }
@@ -140,8 +141,7 @@ namespace Northwind.Persistence
       modelBuilder.ApplyConfigurationsFromAssembly(typeof(NorthwindDbContext).Assembly);
     }
     
-    // Important ....
-    public async Task BeginAsync()
+    public async Task BeginTransactionAsync()
     {
       if (_currentTransaction != null)
       {
@@ -151,24 +151,20 @@ namespace Northwind.Persistence
       _currentTransaction = await Database.BeginTransactionAsync(IsolationLevel.ReadCommitted).ConfigureAwait(false);
     }
 
-    public void Commit() => Task.FromResult(CommitAsync());
-
-    public void Rollback() => Task.FromResult(RollbackAsync());
-
-    public async Task CommitAsync(CancellationToken cancellationToken = new CancellationToken())
+    public async Task CommitTransactionAsync()
     {
       try
       {
-        await SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+        await SaveChangesAsync().ConfigureAwait(false);
 
         if (_currentTransaction != null)
         {
-          await _currentTransaction!.CommitAsync(cancellationToken);
+          await _currentTransaction!.CommitAsync();
         }
       }
       catch
       {
-        await RollbackAsync(cancellationToken);
+        RollbackTransaction();
         throw;
       }
       finally
@@ -179,21 +175,27 @@ namespace Northwind.Persistence
           _currentTransaction = null;
         }
       }
-
     }
 
-    public async Task RollbackAsync(CancellationToken cancellationToken = new CancellationToken())
+    public void RollbackTransaction()
     {
-      if (_currentTransaction == null)
+      try
       {
-        return;
+        _currentTransaction?.Rollback();
       }
-        
-      await _currentTransaction.RollbackAsync(cancellationToken);
+      finally
+      {
+        if (_currentTransaction != null)
+        {
+          _currentTransaction.Dispose();
+          _currentTransaction = null;
+        }
+      }
     }
-
-    public Guid TransactionId => _currentTransaction?.TransactionId ?? new Guid();
-
+    
+    public IEnumerable<IProperty> Keys(Type type) 
+      => Model.FindEntityType(type).FindPrimaryKey().Properties.ToList();
+    
   }
   
 }

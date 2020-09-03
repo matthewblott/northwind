@@ -8,13 +8,13 @@
   {
     public void Configure(EntityTypeBuilder<Order> builder)
     {
-      builder.Property(e => e.OrderId).HasColumnName("OrderID");
+      builder.Property(e => e.OrderId).HasColumnName("OrderId");
 
       builder.Property(e => e.CustomerId)
-        .HasColumnName("CustomerID")
+        .HasColumnName("CustomerId")
         .HasMaxLength(5);
 
-      builder.Property(e => e.EmployeeId).HasColumnName("EmployeeID");
+      builder.Property(e => e.EmployeeId).HasColumnName("EmployeeId");
 
       builder.Property(e => e.Freight)
         .HasColumnType("money")

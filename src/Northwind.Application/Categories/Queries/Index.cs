@@ -5,21 +5,24 @@ namespace Northwind.Application.Categories.Queries
   using System.Threading.Tasks;
   using AutoMapper;
   using AutoMapper.QueryableExtensions;
+  using Common;
   using Common.Interfaces;
   using Common.Mappings;
   using Domain.Entities;
   using MediatR;
   using Microsoft.EntityFrameworkCore;
+  using X.PagedList;
 
   public class Index
   {
     public class Query : IRequest<Model>
     {
+      public int Page { get; set; } = 1;
     }
 
     public class Model
     {
-      public IList<Item> Items { get; set; }
+      public IPagedList<Item> Items { get; set; }
       
       public class Item : IMapFrom<Category>
       {
@@ -56,8 +59,8 @@ namespace Northwind.Application.Categories.Queries
       {
         var items = await _db.Categories
           .ProjectTo<Model.Item>(_mapper.ConfigurationProvider)
-          .ToListAsync(token);
-    
+          .ToPagedListAsync(query.Page, PageConstants.PageSize, token);
+        
         var model = new Model
         {
           Items = items

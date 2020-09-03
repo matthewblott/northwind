@@ -14,7 +14,7 @@
       IsAuthenticated = UserId != null;
     }
 
-    public string? UserId { get; }
+    public string UserId { get; }
 
     public bool IsAuthenticated { get; }
   }

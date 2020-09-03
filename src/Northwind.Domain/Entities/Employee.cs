@@ -2,7 +2,8 @@
 {
   using System;
   using System.Collections.Generic;
-  
+  using Types;
+
   public class Employee //: AuditableEntity
   {
     public ICollection<EmployeeTerritory> EmployeeTerritories { get; private set; }
@@ -22,6 +23,7 @@
     public string FirstName { get; set; }
     public string Title { get; set; }
     public string TitleOfCourtesy { get; set; }
+    public Gender? Gender { get; set; }
     public DateTime? BirthDate { get; set; }
     public DateTime? HireDate { get; set; }
     public string Address { get; set; }
@@ -31,7 +33,7 @@
     public string Country { get; set; }
     public string HomePhone { get; set; }
     public string Extension { get; set; }
-    public byte[] Photo { get; set; }
+    public byte[]? Photo { get; set; }
     public string Notes { get; set; }
     public int? ReportsTo { get; set; }
     public string PhotoPath { get; set; }

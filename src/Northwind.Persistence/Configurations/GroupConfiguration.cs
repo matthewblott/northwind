@@ -4,7 +4,7 @@ namespace Northwind.Persistence.Configurations
   using Microsoft.EntityFrameworkCore;
   using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-  public class GroupConfiguration : IEntityTypeConfiguration<Role>
+  public class wGroupConfiguration : IEntityTypeConfiguration<Role>
   {
     public void Configure(EntityTypeBuilder<Role> builder)
     {

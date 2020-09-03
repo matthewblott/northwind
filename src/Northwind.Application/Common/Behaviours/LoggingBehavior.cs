@@ -1,4 +1,4 @@
-namespace Northwind.Application.Common.Behaviours
+namespace Northwind.WebUI.Behaviours
 {
   using System.Threading;
   using System.Threading.Tasks;

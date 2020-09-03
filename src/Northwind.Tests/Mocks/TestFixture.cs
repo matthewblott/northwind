@@ -10,7 +10,6 @@ namespace Northwind.Tests.Mocks
   using Microsoft.AspNetCore.Http;
   using Microsoft.AspNetCore.Mvc;
   using Microsoft.EntityFrameworkCore;
-  using Microsoft.EntityFrameworkCore.Storage;
   using Microsoft.Extensions.Configuration;
   using Microsoft.Extensions.DependencyInjection;
   using Microsoft.Extensions.Logging;

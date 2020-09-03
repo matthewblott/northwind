@@ -12,8 +12,6 @@
         .HasConversion(
           p => p, 
           s => s.ToUpper())
-        
-        .HasColumnName("CustomerId")
         .HasMaxLength(5)
         .ValueGeneratedNever();
 

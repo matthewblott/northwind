@@ -1,14 +1,14 @@
 namespace Northwind.Persistence
 {
   using Application.Common.Interfaces;
+  using Domain;
   using Microsoft.EntityFrameworkCore;
-  using Microsoft.EntityFrameworkCore.Storage;
   using Microsoft.Extensions.Configuration;
   using Microsoft.Extensions.DependencyInjection;
 
   public static class DependencyInjection
   {
-    public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddPersistence(this IServiceCollection services, string connectionString)
     {
       services.AddDbContext<NorthwindDbContext>(options =>
       {
@@ -17,7 +17,7 @@ namespace Northwind.Persistence
         enabled = true;
 #endif
         // ReSharper disable once ConditionIsAlwaysTrueOrFalse
-        options.UseSqlite(configuration.GetConnectionString("NorthwindDatabase"))
+        options.UseSqlite(connectionString)
           .EnableSensitiveDataLogging(enabled);
       });
 

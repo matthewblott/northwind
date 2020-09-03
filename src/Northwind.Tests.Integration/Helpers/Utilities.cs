@@ -6,7 +6,7 @@ namespace Northwind.Tests.Integration.Helpers
 
   public static class Utilities
   {
-    public static string GetProjectFolderPath()
+    private static string GetProjectFolderPath()
     {
       var assembly = Assembly.GetExecutingAssembly();
       var assemblyName = assembly.GetName().Name?.ToLower();
@@ -33,7 +33,9 @@ namespace Northwind.Tests.Integration.Helpers
     }
 
     public static string GetTestDatabaseConnectionString() =>
-      "DataSource=" + Path.Combine(GetProjectFolderPath(), "db", "northwind_test.db");
+      "DataSource=" + Path.Combine(GetProjectFolderPath(), "db", "northwind_test.sqlite");
+
+    public static string GetProductFilePath() => Path.Combine(GetProjectFolderPath(), "db", "products.csv");
 
   }
   

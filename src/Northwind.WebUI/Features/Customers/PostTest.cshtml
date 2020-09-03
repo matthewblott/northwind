@@ -1,0 +1,35 @@
+@model Northwind.WebUI.Features.Customers.PostTestViewModel
+
+<fieldset>
+  <form method="post" asp-action="PostTest">
+    <x-field>
+      <label asp-for="Id"></label>
+      <input asp-for="Id">
+      <span asp-validation-for="Id"></span>
+    </x-field>
+    <x-field>
+      <label asp-for="CompanyName"></label>
+      <input asp-for="CompanyName">
+      <span asp-validation-for="CompanyName"></span>
+    </x-field>
+    <x-field>
+      <label asp-for="Address"></label>
+      <input asp-for="Address">
+      <span asp-validation-for="Address"></span>
+    </x-field>
+    <x-field>
+      <label asp-for="City"></label>
+      <input asp-for="City">
+      <span asp-validation-for="City"></span>
+    </x-field>
+    <x-field>
+      <label asp-for="PostalCode"></label>
+      <input asp-for="PostalCode">
+      <span asp-validation-for="PostalCode"></span>
+    </x-field>
+    <x-field>
+      <button>Save</button>
+    </x-field>
+  </form>
+
+</fieldset>

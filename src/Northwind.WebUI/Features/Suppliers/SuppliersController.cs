@@ -13,13 +13,11 @@ namespace Northwind.WebUI.Features.Suppliers
 
     public SuppliersController(IMediator mediator) => _mediator = mediator;
 
-    public async Task<IActionResult> Index() => View(await _mediator.Send(new Index.Query()));
+    public async Task<IActionResult> Index(Index.Query query) => View(await _mediator.Send(query));
 
     public async Task<IActionResult> Details(Details.Query query) => View(await _mediator.Send(query));
     
     public async Task<IActionResult> Create(Upsert.Query query) => View(await _mediator.Send(query));
-
-    public async Task<IActionResult> Edit(Upsert.Query query) => View(await _mediator.Send(query));
 
     [HttpPost]
     public async Task<IActionResult> Create(Upsert.Command command)
@@ -27,6 +25,8 @@ namespace Northwind.WebUI.Features.Suppliers
       await _mediator.Send(command);
       return NoContent();
     }
+
+    public async Task<IActionResult> Edit(Upsert.Query query) => View(await _mediator.Send(query));
 
     [HttpPost]
     public async Task<IActionResult> Edit(Upsert.Command command)

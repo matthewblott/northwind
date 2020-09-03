@@ -4,9 +4,11 @@ namespace Northwind.Application.Customers.Commands
   using System.Threading.Tasks;
   using AutoMapper;
   using Common.Interfaces;
+  using Common.Validators;
   using Domain.Entities;
   using FluentValidation;
   using MediatR;
+  using Microsoft.EntityFrameworkCore;
 
   public class Create
   {
@@ -14,6 +16,7 @@ namespace Northwind.Application.Customers.Commands
     {
       [IgnoreMap]
       public string Id { get; set; }
+      
       public string CompanyName { get; set; }
       public string ContactName { get; set; }
       public string ContactTitle { get; set; }
@@ -28,9 +31,18 @@ namespace Northwind.Application.Customers.Commands
 
     public class Validator : AbstractValidator<Command>
     {
-      public Validator()
+      private readonly INorthwindDbContext _db;
+      
+      public Validator(INorthwindDbContext db)
       {
-        RuleFor(x => x.Id).Length(5).NotEmpty();
+        _db = db;
+        
+        RuleFor(x => x.Id)
+          .SetValidator(new RemoteValidator( nameof(Queries.IdAvailable), "Customers"))          
+          .MustAsync(IdAvailable)
+          .Length(5)
+          .NotEmpty();
+        
         RuleFor(x => x.Address).MaximumLength(60);
         RuleFor(x => x.City).MaximumLength(15);
         RuleFor(x => x.CompanyName).MaximumLength(40).NotEmpty();
@@ -42,6 +54,9 @@ namespace Northwind.Application.Customers.Commands
         RuleFor(x => x.PostalCode).MaximumLength(10);
         RuleFor(x => x.Region).MaximumLength(15);
       }
+
+      private async Task<bool> IdAvailable(string newValue, CancellationToken token) =>
+        !await _db.Customers.AnyAsync(c => c.CustomerId == newValue, token);
     }
     
     public class Handler : IRequestHandler<Command, Unit>
