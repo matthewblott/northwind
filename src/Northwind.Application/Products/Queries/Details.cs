@@ -6,18 +6,19 @@ namespace Northwind.Application.Products.Queries
   using System.Threading.Tasks;
   using Common.Interfaces;
   using Common.Mappings;
+  using Domain.Common;
   using MediatR;
 
   public class Details
   {
     public class Query : IRequest<Model>
     {
-      public int Id { get; set; }
+      public Id Id { get; set; }
     }
     
     public class Model : IMapFrom<Product>
     {
-      public int Id { get; set; }
+      public Id Id { get; set; }
       public string ProductName { get; set; }
       public decimal? UnitPrice { get; set; }
       public int? SupplierId { get; set; }
@@ -29,6 +30,7 @@ namespace Northwind.Application.Products.Queries
       public void Mapping(Profile profile)
       {
         profile.CreateMap<Product, Model>()
+          .ForMember(d => d.Id, opt => opt.MapFrom(s => s.ProductId))
           .ForMember(d => d.SupplierCompanyName,
             opt => opt.MapFrom(s => s.Supplier != null ? s.Supplier.CompanyName : string.Empty))
           .ForMember(d => d.CategoryName,
@@ -52,8 +54,9 @@ namespace Northwind.Application.Products.Queries
       public async Task<Model> Handle(Query query, CancellationToken token)
       {
         var entity = await _db.Products.FindAsync(query.Id);
+        var model = _mapper.Map<Model>(entity);
 
-        return _mapper.Map<Model>(entity);
+        return model;
       }
       
     }

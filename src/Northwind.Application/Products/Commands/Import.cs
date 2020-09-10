@@ -9,6 +9,7 @@ namespace Northwind.Application.Products.Commands
   using AutoMapper.QueryableExtensions;
   using Common.Interfaces;
   using Common.Mappings;
+  using Domain.Common;
   using Domain.Entities;
   using FluentValidation;
   using MediatR;
@@ -23,7 +24,7 @@ namespace Northwind.Application.Products.Commands
 
     public class Model
     {
-      public int ProductId { get; set; }
+      public Id ProductId { get; set; }
       public string ProductName { get; set; }
       public int? SupplierId { get; set; }
       public int? CategoryId { get; set; }

@@ -1,6 +1,5 @@
 namespace Northwind.WebUI.Features.Products
 {
-  using System;
   using System.Threading.Tasks;
   using Application.Products.Commands;
   using MediatR;
@@ -14,10 +13,12 @@ namespace Northwind.WebUI.Features.Products
 
     public ProductsController(IMediator mediator) => _mediator = mediator;
 
-    public async Task<IActionResult> Index(Index.Query query) => View(await _mediator.Send(query));
+    public async Task<IActionResult> Index(Index.Query query) => View( await _mediator.Send(query));
 
-    public async Task<IActionResult> Details(Details.Query query) => View(await _mediator.Send(query));
-    
+    [MyActionFilter]
+    public async Task<IActionResult> Details(Details.Query query) 
+      => View(await _mediator.Send(query));
+
     public IActionResult New() => View();
     
     [HttpPost]
@@ -25,10 +26,13 @@ namespace Northwind.WebUI.Features.Products
     {
       await _mediator.Send(command);
 
-      return NoContent();
+      // Need to do something with the returned Id
+      
+      return RedirectToAction(nameof(Create));
     }
     
     [HttpPost]
+    [MyActionFilter]
     public async Task<IActionResult> Update(Update.Command command)
     {
       await _mediator.Send(command);

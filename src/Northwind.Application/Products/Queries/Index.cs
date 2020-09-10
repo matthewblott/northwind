@@ -7,6 +7,7 @@ namespace Northwind.Application.Products.Queries
   using Common;
   using Common.Interfaces;
   using Common.Mappings;
+  using Domain.Common;
   using Domain.Entities;
   using MediatR;
   using X.PagedList;
@@ -26,7 +27,7 @@ namespace Northwind.Application.Products.Queries
       
       public class Item : IMapFrom<Product>
       {
-        public int Id { get; set; }
+        public Id Id { get; set; }
         public string ProductName { get; set; }
         public decimal? UnitPrice { get; set; }
         public int? SupplierId { get; set; }

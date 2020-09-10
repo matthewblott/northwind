@@ -1,5 +1,6 @@
 ﻿namespace Northwind.Persistence.Configurations
 {
+  using Domain.Common;
   using Domain.Entities;
   using Microsoft.EntityFrameworkCore;
   using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -10,7 +11,8 @@
     {
       builder.HasKey(e => new {e.OrderId, e.ProductId});
       builder.Property(e => e.OrderId);
-      builder.Property(e => e.ProductId);
+      builder.Property(e => e.ProductId)
+        .HasConversion(v => (int)v, v => new Id(v) );
       builder.Property(e => e.Quantity);
       builder.Property(e => e.UnitPrice);
       builder.HasOne(d => d.Order)

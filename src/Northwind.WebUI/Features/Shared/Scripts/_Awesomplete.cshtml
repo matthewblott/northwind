@@ -1,0 +1,25 @@
+
+<script>
+  
+  document.addEventListener('turbolinks:load', () => {
+    document.querySelectorAll('input.awesomplete').forEach((el) => {
+      const awesome = new Awesomplete(el);
+
+        el.addEventListener(`keyup`, (e) => {
+
+        if(['Enter', 'Escape', 'ArrowDown', 'ArrowUp'].includes(e.key)) {
+          return;
+        }
+
+        const url = `/suppliers/idsearch?companyName=${e.target.value}`;
+  
+        fetch(url).then((resp) => resp.json()).then((json) => {
+          let list = [];
+          json.forEach((item) => list.push({ label: item.key, value: item.value }));
+          awesome.list = list;
+        });
+      });
+    });
+  });
+  
+</script>

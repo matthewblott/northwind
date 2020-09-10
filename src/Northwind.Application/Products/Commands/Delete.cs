@@ -4,6 +4,7 @@ namespace Northwind.Application.Products.Commands
   using System.Threading;
   using System.Threading.Tasks;
   using Common.Interfaces;
+  using Domain.Common;
   using FluentValidation;
   using MediatR;
 
@@ -18,7 +19,7 @@ namespace Northwind.Application.Products.Commands
     // Command
     public class Command : IRequest
     {
-      public int Id { get; set; }
+      public Id Id { get; set; }
     }
     
     public class CommandValidator : AbstractValidator<Command>

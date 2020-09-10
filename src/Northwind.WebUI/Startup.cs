@@ -9,6 +9,7 @@ namespace Northwind.WebUI
   using Application.Common.Interfaces;
   using Application.Common.Validators;
   using Common;
+  using Features.Products;
   using Filters;
   using FluentValidation.AspNetCore;
   using Microsoft.AspNetCore.Authorization;
@@ -55,11 +56,14 @@ namespace Northwind.WebUI
           });
         });
 
+      // Add framework services.
+      
       var builder = services.AddMvc(o =>
       {
         var policy = new AuthorizationPolicyBuilder()
           .RequireAuthenticatedUser()
           .Build();
+        // o.ModelBinderProviders.Insert(0, new MyModelBinderProvider());
         o.Filters.Add(new AuthorizeFilter(policy));
       });
 

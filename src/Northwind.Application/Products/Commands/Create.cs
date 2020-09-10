@@ -4,16 +4,16 @@ namespace Northwind.Application.Products.Commands
   using System.Threading.Tasks;
   using AutoMapper;
   using Common.Interfaces;
+  using Domain.Common;
   using Domain.Entities;
   using FluentValidation;
   using MediatR;
 
   public class Create
   {
-    public class Command : IRequest<int>
+    public class Command : IRequest<Id>
     {
       [IgnoreMap]
-      public int? Id { get; set; }
       public string ProductName { get; set; }
       public int? SupplierId { get; set; }
       public int? CategoryId { get; set; }
@@ -29,30 +29,28 @@ namespace Northwind.Application.Products.Commands
     {
       public Validator()
       {
-        // RuleFor(v => v.Id) ...
+        // RuleFor(v => v.ProductName) ...
       }
     }
     
-    public class Handler : IRequestHandler<Command, int>
+    public class Handler : IRequestHandler<Command, Id>
     {
       private readonly INorthwindDbContext _db;
-      private readonly IMapper _mapper;
 
-      public Handler(INorthwindDbContext db, IMapper mapper)
-      {
-        _db = db;
-        _mapper = mapper;
-      }
+      public Handler(INorthwindDbContext db) => _db = db;
 
-      public async Task<int> Handle(Command command, CancellationToken token)
+      public async Task<Id> Handle(Command command, CancellationToken token)
       {
         var entity = new Product
         {
           ProductName = command.ProductName,
-          CategoryId = command.CategoryId,
           SupplierId = command.SupplierId,
+          CategoryId = command.CategoryId,
           UnitPrice = command.UnitPrice,
-          Discontinued = command.Discontinued
+          UnitsInStock = 0,
+          UnitsOnOrder = 0,
+          ReorderLevel = 0,
+          Discontinued = command.Discontinued,
         };
 
         await _db.Products.AddAsync(entity, token);

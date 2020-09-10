@@ -8,6 +8,7 @@ namespace Northwind.Application.Suppliers.Queries
   using Common;
   using Common.Interfaces;
   using Common.Mappings;
+  using Domain.Common;
   using Domain.Entities;
   using MediatR;
   using Microsoft.EntityFrameworkCore;

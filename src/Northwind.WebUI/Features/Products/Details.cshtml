@@ -9,30 +9,33 @@
     <x-field>
       <label asp-for="ProductName"></label>
       <input asp-for="ProductName">
+      <span asp-validation-for="ProductName"></span>
     </x-field>
     <x-field>
       <label asp-for="UnitPrice"></label>
       <input asp-for="UnitPrice">
+      <span asp-validation-for="UnitPrice"></span>
     </x-field>
     <x-field>
       <label asp-for="SupplierId"></label>
       <input asp-for="SupplierId">
     </x-field>
-    <x-field>
-      <label asp-for="SupplierCompanyName"></label>
-      <input asp-for="SupplierCompanyName">
-    </x-field>
+    @* <x-field> *@
+    @*   <label asp-for="SupplierCompanyName"></label> *@
+    @*   <input asp-for="SupplierCompanyName" readonly> *@
+    @* </x-field> *@
     <x-field>
       <label asp-for="CategoryId"></label>
       <input asp-for="CategoryId">
     </x-field>
-    <x-field>
-      <label asp-for="CategoryName"></label>
-      <input asp-for="CategoryName">
-    </x-field>
+    @* <x-field> *@
+    @*   <label asp-for="CategoryName"></label> *@
+    @*   <input asp-for="CategoryName" readonly> *@
+    @* </x-field> *@
     <x-field>
       <label asp-for="Discontinued"></label>
       <input asp-for="Discontinued" type="checkbox">
+      <span asp-validation-for="Discontinued"></span>
     </x-field>
     <x-field>
       <button>Save</button>

@@ -2,9 +2,14 @@ namespace Northwind.Persistence
 {
   using Application.Common.Interfaces;
   using Domain;
+  using Domain.Common;
+  using Mappings;
   using Microsoft.EntityFrameworkCore;
+  using Microsoft.EntityFrameworkCore.Storage;
   using Microsoft.Extensions.Configuration;
   using Microsoft.Extensions.DependencyInjection;
+  using Thinktecture;
+  using IDbContextTransaction = Application.Common.Interfaces.IDbContextTransaction;
 
   public static class DependencyInjection
   {
@@ -16,6 +21,7 @@ namespace Northwind.Persistence
 #if DEBUG
         enabled = true;
 #endif
+        options.AddRelationalTypeMappingSourcePlugin<IdTypeMappingPlugin>();
         // ReSharper disable once ConditionIsAlwaysTrueOrFalse
         options.UseSqlite(connectionString)
           .EnableSensitiveDataLogging(enabled);
@@ -27,6 +33,11 @@ namespace Northwind.Persistence
       return services;
       
     }
+    
+  }
+
+  public interface IMyInterface : IRelationalTypeMappingSourcePlugin
+  {
     
   }
   

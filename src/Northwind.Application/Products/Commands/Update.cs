@@ -5,6 +5,7 @@ namespace Northwind.Application.Products.Commands
   using System.Threading.Tasks;
   using AutoMapper;
   using Common.Interfaces;
+  using Domain.Common;
   using FluentValidation;
   using MediatR;
 
@@ -13,7 +14,7 @@ namespace Northwind.Application.Products.Commands
     public class Command : IRequest<Unit>
     {
       [IgnoreMap]
-      public int? Id { get; set; }
+      public Id Id { get; set; }
       public string ProductName { get; set; }
       public decimal? UnitPrice { get; set; }
       public int? SupplierId { get; set; }
@@ -26,7 +27,7 @@ namespace Northwind.Application.Products.Commands
     {
       public Validator()
       {
-        // RuleFor(v => v.Id) ...
+        RuleFor(v => v.ProductName).NotEmpty();
       }
     }
     
@@ -42,12 +43,7 @@ namespace Northwind.Application.Products.Commands
 
       public async Task<Unit> Handle(Command command, CancellationToken token)
       {
-        if (!command.Id.HasValue)
-        {
-          throw new NullReferenceException();
-        }
-
-        var entity = await _db.Products.FindAsync(command.Id.Value);
+        var entity = await _db.Products.FindAsync(command.Id);
 
         entity.ProductName = command.ProductName;
         entity.CategoryId = command.CategoryId;

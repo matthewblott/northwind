@@ -1,6 +1,7 @@
 ﻿namespace Northwind.Domain.Entities
 {
   using System.Collections.Generic;
+  using Common;
 
   public class Product //: AuditableEntity
   {
@@ -14,7 +15,7 @@
       OrderDetails = new HashSet<OrderDetail>();
     }
 
-    public int ProductId { get; set; }
+    public Id ProductId { get; set; }
     public string ProductName { get; set; }
     public int? SupplierId { get; set; }
     public int? CategoryId { get; set; }

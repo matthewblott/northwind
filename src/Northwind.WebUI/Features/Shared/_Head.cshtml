@@ -7,10 +7,14 @@
 <environment include="Development">
   <link rel="stylesheet" href="~/lib/picnic/picnic.css">
   <script src="~/lib/htmx/htmx.js"></script>
+  <script src="~/lib/awesomplete/css/awesomplete.css"></script>
+  <script src="~/lib/awesomplete/js/awesomplete.js"></script>
 </environment>
 <environment include="Staging,Production">
   <link rel="stylesheet" href="~/lib/picnic/picnic.min.css">
   <script src="https://unpkg.com/htmx.org@0.0.6/dist/htmx.min.js"></script>
+  <script src="~/lib/awesomplete/css/awesomplete.min.css"></script>
+  <script src="~/lib/awesomplete/js/awesomplete.min.js"></script>
 </environment>
 
 @* Custom *@
@@ -19,6 +23,7 @@
 <partial name="Styles/_PagedList" />
 <partial name="Styles/_Validation" />
 <partial name="Scripts/_Validation" />
+<partial name="Scripts/_Awesomplete" />
 
 <link rel="stylesheet" href="~/css/main.css">
 

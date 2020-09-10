@@ -1,5 +1,7 @@
 namespace Northwind.WebUI.Features.Suppliers
 {
+  using System;
+  using System.Collections.Generic;
   using System.Threading.Tasks;
   using Application.Suppliers.Commands;
   using Application.Suppliers.Queries;
@@ -41,6 +43,9 @@ namespace Northwind.WebUI.Features.Suppliers
       await _mediator.Send(command);
       return NoContent();
     }
+    
+    public async Task<IActionResult> IdSearch(IdSearch.Query query) 
+      => Content(await _mediator.Send(query), "application/json");
     
   }
   
